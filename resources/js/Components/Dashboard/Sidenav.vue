@@ -51,7 +51,7 @@ import sidenav from '@/Data/sidenav.json';
             v-for="(nav, index) in sidenav"
             :key="index"
             :class="[
-              route().current(nav.route) ? 'active' : '',
+              route().current(nav.active) ? 'active' : '',
               nav.type == 'divider' ? 'dropdown-divider mt-4 mb-3 border-gray-700' : 'nav-item'
             ]"
         >
@@ -69,7 +69,7 @@ import sidenav from '@/Data/sidenav.json';
               class="nav-link d-flex justify-content-between align-items-center"
               data-bs-toggle="collapse"
               :data-bs-target="'#submenu-' + index"
-              :aria-expanded="route().current(nav.route) ? 'true' : 'false'"
+              :aria-expanded="route().current(nav.active) ? 'true' : 'false'"
             >
               <span>
                 <i class="pe-3" :class="nav.icon"></i>
@@ -87,15 +87,15 @@ import sidenav from '@/Data/sidenav.json';
                 class="multi-level collapse"
                 role="list"
                 :id="'submenu-' + index"
-                :aria-expanded="route().current(nav.route) ? 'true' : 'false'"
-                :class="route().current(nav.route) ? 'show' : ''"
+                :aria-expanded="route().current(nav.active) ? 'true' : 'false'"
+                :class="route().current(nav.active) ? 'show' : ''"
             >
               <ul class="flex-column nav">
                 <li
                     v-for="(menu, index) in nav.menus"
                     class="nav-item"
                     :key="index"
-                    :class="route().current(menu.route) ? 'active' : ''"
+                    :class="route().current(menu.active) ? 'active' : ''"
                 >
                   <Link
                       class="nav-link"
