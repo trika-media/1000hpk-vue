@@ -1,9 +1,6 @@
 <script setup>
-import BreezeButton from '@/Components/Button.vue';
-import BreezeGuestLayout from '@/Layouts/Guest.vue';
-import BreezeInput from '@/Components/Input.vue';
-import BreezeLabel from '@/Components/Label.vue';
-import BreezeValidationErrors from '@/Components/ValidationErrors.vue';
+import GuestLayout from '@/Layouts/Guest.vue';
+import ValidationErrors from '@/Components/Auth/ValidationErrors.vue';
 import { Head, useForm } from '@inertiajs/inertia-vue3';
 
 const form = useForm({
@@ -18,26 +15,45 @@ const submit = () => {
 </script>
 
 <template>
-    <BreezeGuestLayout>
+    <GuestLayout>
         <Head title="Confirm Password" />
 
-        <div class="mb-4 text-sm text-gray-600">
-            This is a secure area of the application. Please confirm your password before continuing.
-        </div>
+        <p>
+            Ini adalah area aplikasi yang aman.
+            Harap konfirmasi kata sandi Anda sebelum melanjutkan.
+        </p>
 
-        <BreezeValidationErrors class="mb-4" />
+        <ValidationErrors class="mb-4" />
 
         <form @submit.prevent="submit">
-            <div>
-                <BreezeLabel for="password" value="Password" />
-                <BreezeInput id="password" type="password" class="mt-1 block w-full" v-model="form.password" required autocomplete="current-password" autofocus />
+            <div class="form-group mb-4">
+                <label for="password">Password</label>
+
+                <div class="input-group">
+                    <span class="input-group-text" id="basic-addon">
+                        <i class="fas fa-lock px-2 font-weight-bold"></i>
+                    </span>
+
+                    <input
+                        class="form-control"
+                        id="password"
+                        v-model="form.password"
+                        type="password"
+                        required
+                        autocomplete="current-password"
+                        placeholder="masukkan password"
+                    >
+                </div>
             </div>
 
-            <div class="flex justify-end mt-4">
-                <BreezeButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Confirm
-                </BreezeButton>
+            <div class="d-grid">
+                <button
+                    type="submit"
+                    class="btn btn-gray-800"
+                    :class="{ 'opacity-25': form.processing }"
+                    :disabled="form.processing"
+                >Konfirmasi</button>
             </div>
         </form>
-    </BreezeGuestLayout>
+    </GuestLayout>
 </template>

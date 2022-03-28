@@ -1,9 +1,6 @@
 <script setup>
-import BreezeButton from '@/Components/Button.vue';
-import BreezeGuestLayout from '@/Layouts/Guest.vue';
-import BreezeInput from '@/Components/Input.vue';
-import BreezeLabel from '@/Components/Label.vue';
-import BreezeValidationErrors from '@/Components/ValidationErrors.vue';
+import GuestLayout from '@/Layouts/Guest.vue';
+import ValidationErrors from '@/Components/Auth/ValidationErrors.vue';
 import { Head, useForm } from '@inertiajs/inertia-vue3';
 
 defineProps({
@@ -20,30 +17,54 @@ const submit = () => {
 </script>
 
 <template>
-    <BreezeGuestLayout>
-        <Head title="Forgot Password" />
+    <GuestLayout>
+        <Head title="Lupa Password" />
 
-        <div class="mb-4 text-sm text-gray-600">
-            Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.
-        </div>
+        <h1 class="h3">Lupa Password?</h1>
 
-        <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
+        <ValidationErrors class="mb-4" />
+
+        <div v-if="status" class="alert alert-info" role="alert">
             {{ status }}
         </div>
 
-        <BreezeValidationErrors class="mb-4" />
+        <p class="mb-4">
+            Lupa kata sandi Anda? Tidak masalah.
+            Cukup beri tahu kami alamat email Anda dan kami akan
+            mengirim email kepada Anda tautan pengaturan ulang kata sandi
+             yang memungkinkan Anda memilih yang baru.
+        </p>
 
         <form @submit.prevent="submit">
-            <div>
-                <BreezeLabel for="email" value="Email" />
-                <BreezeInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus autocomplete="username" />
+            <div class="form-group mb-4">
+                <label for="email">Email</label>
+
+                <div class="input-group">
+                    <span class="input-group-text" id="basic-addon">
+                        <i class="fas fa-at px-2 font-weight-bold"></i>
+                    </span>
+
+                    <input
+                        class="form-control"
+                        id="email"
+                        v-model="form.email"
+                        type="email"
+                        required
+                        autofocus
+                        autocomplete="username"
+                        placeholder="masukkan email"
+                    >
+                </div>
             </div>
 
-            <div class="flex items-center justify-end mt-4">
-                <BreezeButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Email Password Reset Link
-                </BreezeButton>
+            <div class="d-grid">
+                <button
+                    type="submit"
+                    class="btn btn-gray-800"
+                    :class="{ 'opacity-25': form.processing }"
+                    :disabled="form.processing">
+                Pulihkan Password</button>
             </div>
         </form>
-    </BreezeGuestLayout>
+    </GuestLayout>
 </template>
