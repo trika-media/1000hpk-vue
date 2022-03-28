@@ -1,7 +1,5 @@
 <script setup>
 import { Link } from '@inertiajs/inertia-vue3';
-const image = "'/assets/img/illustrations/signin.svg'";
-
 </script>
 
 <template>
@@ -15,7 +13,7 @@ const image = "'/assets/img/illustrations/signin.svg'";
                     </Link>
                 </p>
 
-                <div class="row justify-content-center form-bg-image" :style="{ 'background-image': 'url(' + image + ')' }">
+                <div class="row justify-content-center form-bg-image">
                     <div class="col-12 d-flex align-items-center justify-content-center">
                         <div class="bg-white shadow border-0 rounded border-light p-4 p-lg-5 w-100 fmxw-500">
                             <slot />
