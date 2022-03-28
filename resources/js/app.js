@@ -4,6 +4,11 @@ require('./volt');
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/inertia-vue3';
 import { InertiaProgress } from '@inertiajs/progress';
+import swal from 'sweetalert2';
+import SmoothScroll from 'smooth-scroll';
+
+window.Swal = swal;
+window.SmoothScroll = SmoothScroll;
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
 
