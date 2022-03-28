@@ -6,5 +6,20 @@
         "active":"dashboard.index",
         "icon":"fas fa-chart-pie",
         "roles": ["admin", "user"]
+    },
+    {
+        "type":"dropdown",
+        "name":"Master",
+        "icon":"fas fa-database",
+        "roles": ["admin"],
+        "active":"master.*",
+        "menus": [
+            {
+                "name": "Penyakit",
+                "active": "master.penyakit.*",
+                "route": "master.penyakit.index",
+                "roles": ["admin"]
+            }
+        ]
     }
 ]
