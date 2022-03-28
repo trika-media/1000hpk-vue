@@ -1,7 +1,6 @@
 <script setup>
 import { computed } from 'vue';
-import BreezeButton from '@/Components/Button.vue';
-import BreezeGuestLayout from '@/Layouts/Guest.vue';
+import GuestLayout from '@/Layouts/Guest.vue';
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 
 const props = defineProps({
@@ -18,7 +17,7 @@ const verificationLinkSent = computed(() => props.status === 'verification-link-
 </script>
 
 <template>
-    <BreezeGuestLayout>
+    <GuestLayout>
         <Head title="Verifikasi Email" />
 
         <p>
@@ -49,5 +48,5 @@ const verificationLinkSent = computed(() => props.status === 'verification-link-
                 >Keluar</Link>
             </div>
         </form>
-    </BreezeGuestLayout>
+    </GuestLayout>
 </template>

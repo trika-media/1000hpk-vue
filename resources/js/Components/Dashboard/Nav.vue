@@ -1,8 +1,12 @@
+<script setup>
+import { Link } from '@inertiajs/inertia-vue3';
+</script>
+
 <template>
     <nav class="navbar navbar-dark navbar-theme-primary px-4 col-12 d-lg-none">
-        <a class="navbar-brand me-lg-5" href="/">
+        <Link class="navbar-brand me-lg-5" href="/">
             <i class="fas fa-map-location-dot" style="font-size:2rem"></i>
-        </a>
+        </Link>
 
         <div class="d-flex align-items-center">
             <button

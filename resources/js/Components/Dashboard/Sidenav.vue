@@ -1,5 +1,6 @@
 <script setup>
 import { Link } from '@inertiajs/inertia-vue3';
+import sidenav from '@/Data/sidenav.json';
 </script>
 
 <template>
@@ -9,7 +10,7 @@ import { Link } from '@inertiajs/inertia-vue3';
         <div class="d-flex align-items-center">
           <div class="avatar-lg me-4">
             <img :src="'https://ui-avatars.com/api/?name=' + $page.props.auth.user.name" class="card-img-top rounded-circle border-white"
-              alt="Bonnie Green">
+              alt="Foto {{ $page.props.auth.user.name }}">
           </div>
 
           <div class="d-block">
@@ -46,12 +47,66 @@ import { Link } from '@inertiajs/inertia-vue3';
           </Link>
         </li>
 
-        <li class="nav-item" :class="route().current('dashboard.index') ? 'active' : ''" >
-          <Link :href="route('dashboard.index')" class="nav-link">
-            <i class="fas fa-chart-pie pe-3"></i>
-
-            <span class="sidebar-text">Dashboard</span>
+        <li
+            v-for="(nav, index) in sidenav"
+            :key="index"
+            :class="[
+              route().current(nav.route) ? 'active' : '',
+              nav.type == 'divider' ? 'dropdown-divider mt-4 mb-3 border-gray-700' : 'nav-item'
+            ]"
+        >
+          <Link
+              v-if="nav.type == 'link'"
+              class="nav-link"
+              :href="route(nav.route)"
+          >
+            <i class="pe-3" :class="nav.icon"></i>
+            <span class="sidebar-text">{{ nav.name }}</span>
           </Link>
+
+          <div v-else-if="nav.type == 'dropdown'">
+            <span
+              class="nav-link d-flex justify-content-between align-items-center"
+              data-bs-toggle="collapse"
+              :data-bs-target="'#submenu-' + index"
+              :aria-expanded="route().current(nav.route) ? 'true' : 'false'"
+            >
+              <span>
+                <i class="pe-3" :class="nav.icon"></i>
+                <span class="sidebar-text">{{ nav.name }}</span>
+              </span>
+
+              <span class="link-arrow">
+                <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                </svg>
+              </span>
+            </span>
+
+            <div
+                class="multi-level collapse"
+                role="list"
+                :id="'submenu-' + index"
+                :aria-expanded="route().current(nav.route) ? 'true' : 'false'"
+                :class="route().current(nav.route) ? 'show' : ''"
+            >
+              <ul class="flex-column nav">
+                <li
+                    v-for="(menu, index) in nav.menus"
+                    class="nav-item"
+                    :key="index"
+                    :class="route().current(menu.route) ? 'active' : ''"
+                >
+                  <Link
+                      class="nav-link"
+                      :href="route(menu.route)"
+                  >
+                    <span class="sidebar-text">{{ menu.name }}</span>
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
         </li>
       </ul>
     </div>

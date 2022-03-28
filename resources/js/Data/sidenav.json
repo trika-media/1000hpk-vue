@@ -1,0 +1,9 @@
+[
+    {
+        "type":"link",
+        "name":"Dashboard",
+        "route":"dashboard.index",
+        "icon":"fas fa-chart-pie",
+        "roles": ["admin", "user"]
+    }
+]
