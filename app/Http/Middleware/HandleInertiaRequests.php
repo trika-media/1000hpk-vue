@@ -39,7 +39,7 @@ class HandleInertiaRequests extends Middleware
             ],
             'auth' => [
                 'user' => $request->user(),
-                'avatar' => $request->user()->avatarUrl,
+                'avatar' => $request->user()?->avatarUrl,
             ],
         ]);
     }
