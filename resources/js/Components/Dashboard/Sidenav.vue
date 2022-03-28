@@ -9,8 +9,8 @@ import sidenav from '@/Data/sidenav.json';
       <div class="user-card d-flex d-md-none align-items-center justify-content-between justify-content-md-center pb-4">
         <div class="d-flex align-items-center">
           <div class="avatar-lg me-4">
-            <img :src="'https://ui-avatars.com/api/?name=' + $page.props.auth.user.name" class="card-img-top rounded-circle border-white"
-              alt="Foto {{ $page.props.auth.user.name }}">
+            <img :src="$page.props.auth.avatar" class="card-img-top rounded-circle border-white"
+              :alt="'Foto ' + $page.props.auth.user.name">
           </div>
 
           <div class="d-block">

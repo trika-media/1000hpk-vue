@@ -29,7 +29,7 @@ import { Link } from '@inertiajs/inertia-vue3';
           <li class="nav-item dropdown ms-lg-3">
             <a class="nav-link dropdown-toggle pt-1 px-0" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <div class="media d-flex align-items-center">
-                <img class="avatar rounded-circle" alt="Foto {{ $page.props.auth.user.name }}" :src="'https://ui-avatars.com/api/?name=' + $page.props.auth.user.name">
+                <img class="avatar rounded-circle" :alt="'Foto ' + $page.props.auth.user.name" :src="$page.props.auth.avatar" >
 
                 <div class="media-body ms-2 text-dark align-items-center d-none d-lg-block">
                   <span class="mb-0 font-small fw-bold text-gray-900">{{ $page.props.auth.user.name }}</span>

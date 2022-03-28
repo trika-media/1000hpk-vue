@@ -25274,7 +25274,7 @@ var _hoisted_2 = {
   "class": "row"
 };
 var _hoisted_3 = {
-  "class": "col-12 col-md-4 col-xl-6"
+  "class": "col-12"
 };
 var _hoisted_4 = {
   "class": "mb-0 text-center text-lg-start"
@@ -25386,7 +25386,7 @@ var _hoisted_4 = {
 var _hoisted_5 = {
   "class": "avatar-lg me-4"
 };
-var _hoisted_6 = ["src"];
+var _hoisted_6 = ["src", "alt"];
 var _hoisted_7 = {
   "class": "d-block"
 };
@@ -25480,9 +25480,9 @@ var _hoisted_23 = {
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("nav", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-    src: 'https://ui-avatars.com/api/?name=' + _ctx.$page.props.auth.user.name,
+    src: _ctx.$page.props.auth.avatar,
     "class": "card-img-top rounded-circle border-white",
-    alt: "Foto {{ $page.props.auth.user.name }}"
+    alt: 'Foto ' + _ctx.$page.props.auth.user.name
   }, null, 8
   /* PROPS */
   , _hoisted_6)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", _hoisted_8, "Hi, " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$page.props.auth.user.name), 1
@@ -25631,7 +25631,7 @@ var _hoisted_7 = {
 var _hoisted_8 = {
   "class": "media d-flex align-items-center"
 };
-var _hoisted_9 = ["src"];
+var _hoisted_9 = ["alt", "src"];
 var _hoisted_10 = {
   "class": "media-body ms-2 text-dark align-items-center d-none d-lg-block"
 };
@@ -25669,8 +25669,8 @@ var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNo
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("nav", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
     "class": "avatar rounded-circle",
-    alt: "Foto {{ $page.props.auth.user.name }}",
-    src: 'https://ui-avatars.com/api/?name=' + _ctx.$page.props.auth.user.name
+    alt: 'Foto ' + _ctx.$page.props.auth.user.name,
+    src: _ctx.$page.props.auth.avatar
   }, null, 8
   /* PROPS */
   , _hoisted_9), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$page.props.auth.user.name), 1
