@@ -23,6 +23,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
+
+        'role',
+        'avatar',
+        'email_verified_at',
     ];
 
     /**
@@ -44,10 +48,14 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    protected $appends = [
+        'avatar_url'
+    ];
+
     public function getAvatarUrlAttribute()
     {
         if ($this->avatar) {
-            $avatar = Storage::disk('avatars')->url($this->avatar);
+            $avatar = asset($this->avatar);
         } else {
             $avatar = 'https://ui-avatars.com/api/?name=' . $this->name;
         }

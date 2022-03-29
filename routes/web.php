@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\PenyakitController;
+use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,9 +21,12 @@ Route::get('/', [WelcomeController::class, 'index'])->name('welcome.index');
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
-    Route::middleware('roles:admin')->group(function () {
+    Route::middleware('roles:superadmin,admin')->group(function () {
         Route::prefix('master')->name('master.')->group(function () {
-            Route::resource('penyakit', PenyakitController::class);
+            // Pengguna
+            Route::resource('pengguna', PenggunaController::class);
+            Route::post('pengguna/{pengguna}/status', [PenggunaController::class, 'status'])
+                ->name('pengguna.status');
         });
     });
 });

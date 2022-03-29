@@ -1,5 +1,5 @@
 <script setup>
-import { Link, usePage } from '@inertiajs/inertia-vue3';
+import { Link } from '@inertiajs/inertia-vue3';
 import sidenav from '@/Data/sidenav.json';
 </script>
 

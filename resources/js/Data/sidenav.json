@@ -5,20 +5,20 @@
         "route":"dashboard.index",
         "active":"dashboard.index",
         "icon":"fas fa-chart-pie",
-        "roles": ["admin", "user"]
+        "roles": ["superadmin", "admin", "user"]
     },
     {
         "type":"dropdown",
         "name":"Master",
         "icon":"fas fa-database",
-        "roles": ["admin"],
+        "roles": ["superadmin", "admin"],
         "active":"master.*",
         "menus": [
             {
-                "name": "Penyakit",
-                "active": "master.penyakit.*",
-                "route": "master.penyakit.index",
-                "roles": ["admin"]
+                "name": "Pengguna",
+                "active": "master.pengguna.*",
+                "route": "master.pengguna.index",
+                "roles": ["superadmin", "admin"]
             }
         ]
     }

@@ -37,7 +37,7 @@ class HandleInertiaRequests extends Middleware
             'csrf_token' => csrf_token(),
             'app' => [
                 'name' => config('app.name'),
-                'const' => config('const'),
+                'const' => fn () => config('const'),
             ],
             'flash' => [
                 'success' => fn () => $request->session()->get('success'),
