@@ -44,6 +44,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    protected $appends = [
+        'avatar_url'
+    ];
+
     public function getAvatarUrlAttribute()
     {
         if ($this->avatar) {
