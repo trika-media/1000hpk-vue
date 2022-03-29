@@ -118,7 +118,10 @@ class PenggunaController extends Controller
             }
 
             if ($request->avatar) {
-                Storage::delete($pengguna->avatar);
+                if ($pengguna->avatar) {
+                    Storage::delete($pengguna->avatar);
+                }
+
                 $pengguna->update(['avatar' => upload_file('data/avatars/', $request->file('avatar'))]);
             }
         } catch (\Exception $e) {
