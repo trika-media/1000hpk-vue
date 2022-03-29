@@ -25617,7 +25617,11 @@ var _hoisted_3 = {
   id: "navbarSupportedContent"
 };
 
-var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"d-flex align-items-center\"><form class=\"navbar-search form-inline\" id=\"navbar-search-main\"><div class=\"input-group input-group-merge search-bar\"><span class=\"input-group-text\" id=\"topbar-addon\"><i class=\"fas fa-search px-1\"></i></span><input type=\"text\" class=\"form-control\" id=\"topbarInputIconLeft\" placeholder=\"Search\" aria-label=\"Search\" aria-describedby=\"topbar-addon\"></div></form></div>", 1);
+var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "d-flex align-items-center"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <form class=\"navbar-search form-inline\" id=\"navbar-search-main\">\n            <div class=\"input-group input-group-merge search-bar\">\n                <span class=\"input-group-text\" id=\"topbar-addon\">\n                  <i class=\"fas fa-search px-1\"></i>\n                </span>\n\n                <input\n                  type=\"text\"\n                  class=\"form-control\"\n                  id=\"topbarInputIconLeft\"\n                  placeholder=\"Search\"\n                  aria-label=\"Search\"\n                  aria-describedby=\"topbar-addon\"\n                >\n            </div>\n          </form> ")], -1
+/* HOISTED */
+);
 
 var _hoisted_5 = {
   "class": "navbar-nav align-items-center"
