@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PenggunaController;
+use App\Http\Controllers\PenyakitController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::resource('pengguna', PenggunaController::class);
             Route::post('pengguna/{pengguna}/status', [PenggunaController::class, 'status'])
                 ->name('pengguna.status');
+
+            // Penyakit
+            Route::resource('penyakit', PenyakitController::class);
         });
     });
 });

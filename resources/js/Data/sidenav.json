@@ -19,6 +19,12 @@
                 "active": "master.pengguna.*",
                 "route": "master.pengguna.index",
                 "roles": ["superadmin", "admin"]
+            },
+            {
+                "name": "Penyakit",
+                "active": "master.penyakit.*",
+                "route": "master.penyakit.index",
+                "roles": ["superadmin", "admin"]
             }
         ]
     }
