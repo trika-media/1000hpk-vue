@@ -21,7 +21,9 @@ Route::get('/', [WelcomeController::class, 'index'])->name('welcome.index');
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
-    Route::prefix('master')->name('master.')->group(function () {
-        Route::resource('penyakit', PenyakitController::class);
+    Route::middleware('roles:admin')->group(function () {
+        Route::prefix('master')->name('master.')->group(function () {
+            Route::resource('penyakit', PenyakitController::class);
+        });
     });
 });
