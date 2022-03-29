@@ -25516,7 +25516,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   })]), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.sidenav, function (nav, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", {
       key: index,
-      "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([_ctx.route().current(nav.route) ? 'active' : '', nav.type == 'divider' ? 'dropdown-divider mt-4 mb-3 border-gray-700' : 'nav-item'])
+      "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([_ctx.route().current(nav.active) ? 'active' : '', nav.type == 'divider' ? 'dropdown-divider mt-4 mb-3 border-gray-700' : 'nav-item'])
+    }, [nav.roles.includes(_ctx.$page.props.auth.user.role) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+      key: 0
     }, [nav.type == 'link' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["Link"], {
       key: 0,
       "class": "nav-link",
@@ -25540,7 +25542,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       "class": "nav-link d-flex justify-content-between align-items-center",
       "data-bs-toggle": "collapse",
       "data-bs-target": '#submenu-' + index,
-      "aria-expanded": _ctx.route().current(nav.route) ? 'true' : 'false'
+      "aria-expanded": _ctx.route().current(nav.active) ? 'true' : 'false'
     }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
       "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["pe-3", nav.icon])
     }, null, 2
@@ -25550,13 +25552,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     )]), _hoisted_20], 8
     /* PROPS */
     , _hoisted_18), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-      "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["multi-level collapse", _ctx.route().current(nav.route) ? 'show' : '']),
+      "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["multi-level collapse", _ctx.route().current(nav.active) ? 'show' : '']),
       role: "list",
       id: 'submenu-' + index,
-      "aria-expanded": _ctx.route().current(nav.route) ? 'true' : 'false'
+      "aria-expanded": _ctx.route().current(nav.active) ? 'true' : 'false'
     }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_22, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(nav.menus, function (menu, index) {
       return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", {
-        "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["nav-item", _ctx.route().current(menu.route) ? 'active' : '']),
+        "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["nav-item", _ctx.route().current(menu.active) ? 'active' : '']),
         key: index
       }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Link"], {
         "class": "nav-link",
@@ -25579,7 +25581,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     /* KEYED_FRAGMENT */
     ))])], 10
     /* CLASS, PROPS */
-    , _hoisted_21)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 2
+    , _hoisted_21)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 2112
+    /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */
+    )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 2
     /* CLASS */
     );
   }), 128
@@ -60376,7 +60380,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('[{"type":"link","name":"Dashboard","route":"dashboard.index","icon":"fas fa-chart-pie","roles":["admin","user"]}]');
+module.exports = JSON.parse('[{"type":"link","name":"Dashboard","route":"dashboard.index","active":"dashboard.index","icon":"fas fa-chart-pie","roles":["admin","user"]}]');
 
 /***/ })
 
