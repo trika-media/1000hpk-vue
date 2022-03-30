@@ -3,6 +3,8 @@
 /public/data
 /public/js/app.js
 /public/css/app.css
+/public/images/vendor
+/public/js/node_modules*
 /public/storage
 /storage/*.key
 /vendor
