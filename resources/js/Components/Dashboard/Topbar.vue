@@ -38,11 +38,11 @@ import { Link } from '@inertiajs/inertia-vue3';
             </a>
 
             <div class="dropdown-menu dashboard-dropdown dropdown-menu-end mt-2 py-1">
-              <a class="dropdown-item d-flex align-items-center" href="#">
+              <Link class="dropdown-item d-flex align-items-center" :href="route('profil.index')">
                 <i class="fas fa-user-circle px-2"></i>
 
                 Profil
-              </a>
+              </Link>
 
               <div role="separator" class="dropdown-divider my-1"></div>
 
