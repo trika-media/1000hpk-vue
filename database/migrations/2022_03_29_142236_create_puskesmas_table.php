@@ -14,7 +14,19 @@ return new class extends Migration
     public function up()
     {
         Schema::create('puskesmas', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
+
+            $table->string('nama');
+            $table->text('alamat');
+
+            $table->foreignUuid('kelurahan_id')->nullable();
+            $table->foreignUuid('kecamatan_id')->nullable();
+            $table->foreignUuid('kabupaten_id')->nullable();
+            $table->foreignUuid('provinsi_id')->nullable();
+
+            $table->string('lat')->nullable();
+            $table->string('lng')->nullable();
+
             $table->timestamps();
         });
     }

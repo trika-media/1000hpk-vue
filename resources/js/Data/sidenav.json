@@ -25,6 +25,12 @@
                 "active": "master.penyakit.*",
                 "route": "master.penyakit.index",
                 "roles": ["superadmin", "admin"]
+            },
+            {
+                "name": "Puskesmas",
+                "active": "master.puskesmas.*",
+                "route": "master.puskesmas.index",
+                "roles": ["superadmin", "admin"]
             }
         ]
     }

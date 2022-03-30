@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\PenyakitController;
+use App\Http\Controllers\PuskesmasController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
             // Penyakit
             Route::resource('penyakit', PenyakitController::class);
+
+            // Puskesmas
+            Route::resource('puskesmas', PuskesmasController::class)
+                ->parameters(['puskesmas' => 'puskesmas']);
         });
     });
 });
