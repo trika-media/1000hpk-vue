@@ -9,7 +9,6 @@
                 <div class="row">
                     <div class="col-12 text-center d-flex align-items-center justify-content-center">
                         <div>
-                            <img class="img-fluid w-50" src="{{ asset('assets/img/illustrations/signin.svg') }}" alt="404 not found">
                             <h1 class="mt-5">Halaman tidak dapat Anda <span class="fw-bolder text-primary">Akses</span></h1>
 
 

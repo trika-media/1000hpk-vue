@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
 
         // Custom
         'roles' => \App\Http\Middleware\CheckRoles::class,
+        'mahasiswa' => \App\Http\Middleware\CheckMahasiswa::class,
     ];
 }

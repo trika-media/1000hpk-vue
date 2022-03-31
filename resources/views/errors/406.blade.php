@@ -1,6 +1,6 @@
 @extends('layouts.base')
 
-@section('title', '404')
+@section('title', 'Akun Tidak Terhubung')
 
 @section('content')
     <main>
@@ -9,17 +9,17 @@
                 <div class="row">
                     <div class="col-12 text-center d-flex align-items-center justify-content-center">
                         <div>
-                            <h1 class="mt-5">Halaman Tidak <span class="fw-bolder text-primary">Ditemukan</span></h1>
+                            <h1 class="mt-5">Halaman tidak dapat Anda <span class="fw-bolder text-primary">Akses</span></h1>
 
 
                             <p class="lead my-4">
-                                Ups! Sepertinya Anda mengikuti tautan yang salah.
-                                Jika menurut Anda ini masalah dengan kami, beri tahu kami.
+                                Waduh, Akun Anda tidak memiliki data mahasiswa yang terhubung. <br>
+                                Silahkan kontak Admin untuk info lebih lanjut.
                             </p>
 
-                            <a href="/" class="btn btn-gray-800 d-inline-flex align-items-center justify-content-center mb-4">
+                            <a href="{{ route('dashboard.index') }}" class="btn btn-gray-800 d-inline-flex align-items-center justify-content-center mb-4">
                                 <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd"></path></svg>
-                                Kembali ke Halaman Depan
+                                Kembali ke Dashboard
                             </a>
                         </div>
                     </div>

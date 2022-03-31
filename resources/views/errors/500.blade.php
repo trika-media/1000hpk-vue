@@ -9,7 +9,6 @@
                 <div class="row">
                     <div class="col-12 text-center d-flex align-items-center justify-content-center">
                         <div>
-                            <img class="img-fluid w-50" src="{{ asset('assets/img/illustrations/500.svg') }}" alt="404 not found">
                             <h1 class="mt-5">Maaf, <span class="fw-bolder text-primary">Internal Server Error</span></h1>
 
 
