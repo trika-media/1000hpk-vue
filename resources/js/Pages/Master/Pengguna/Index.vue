@@ -61,7 +61,7 @@ const changeStatus = (id) => {
                         <th>Nama</th>
                         <th>Email</th>
                         <th>Role</th>
-                        <th width="140">Status</th>
+                        <th width="170">Status</th>
                         <th width="10">Aksi</th>
                     </thead>
 
