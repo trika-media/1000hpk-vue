@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
@@ -119,7 +119,7 @@ class PenggunaController extends Controller
 
             if ($request->avatar) {
                 if ($pengguna->avatar) {
-                    Storage::delete($pengguna->avatar);
+                    File::delete($pengguna->avatar);
                 }
 
                 $pengguna->update(['avatar' => upload_file('data/avatars/', $request->file('avatar'))]);
@@ -146,6 +146,10 @@ class PenggunaController extends Controller
             return redirect()->back();
         }
 
+        if ($pengguna->avatar) {
+            File::delete($pengguna->avatar);
+        }
+
         $pengguna->delete();
         session()->flash('success', 'Data pengguna berhasil dihapus!');
         return redirect()->route('master.pengguna.index');
@@ -153,6 +157,11 @@ class PenggunaController extends Controller
 
     public function status(User $pengguna)
     {
+        if ($pengguna->id == auth()->user()->id) {
+            session()->flash('warning', 'Tidak dapat menonaktifkan diri sendiri!');
+            return redirect()->back();
+        }
+
         $status = $pengguna->email_verified_at ? null : now();
 
         $pengguna->update(['email_verified_at' => $status]);

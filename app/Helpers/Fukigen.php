@@ -13,6 +13,10 @@ use Illuminate\Support\Str;
 if (!function_exists('upload_file')) {
     function upload_file($pathFileLocation, $requestFile)
     {
+        if (!$requestFile) {
+            return null;
+        }
+
         (config('app.env') == 'local') ? $storage = '' : $storage = 'public/';
 
         $temporaryFileName = Str::uuid() . '.' .

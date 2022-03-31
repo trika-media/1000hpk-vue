@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\File;
 use Illuminate\Validation\Rules\Password;
 
 class ProfilController extends Controller
@@ -88,7 +87,7 @@ class ProfilController extends Controller
 
             if ($request->avatar) {
                 if ($profil->avatar) {
-                    Storage::delete($profil->avatar);
+                    File::delete($profil->avatar);
                 }
 
                 $profil->update(['avatar' => upload_file('data/avatars/', $request->file('avatar'))]);
