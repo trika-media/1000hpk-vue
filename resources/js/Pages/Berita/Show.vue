@@ -35,7 +35,7 @@ const props = defineProps({
 
         <div class="card">
             <ul class="list-group">
-                <li class="list-group-item border-bottom p-3">
+                <li class="list-group-item border-bottom p-3" v-if="props.berita.gambar">
                     <div>
                         <img
                             :src="props.berita.gambar_url"

@@ -6,6 +6,7 @@ use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\PenyakitController;
 use App\Http\Controllers\PuskesmasController;
+use App\Http\Controllers\User\ListBeritaController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -46,5 +47,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::resource('puskesmas', PuskesmasController::class)
                 ->parameters(['puskesmas' => 'puskesmas']);
         });
+    });
+
+    Route::prefix('user')->name('user.')->middleware('roles:user,mahasiswa')->group(function () {
+        // Berita
+        Route::resource('berita', ListBeritaController::class)
+            ->parameters(['berita' => 'slug'])
+            ->only('index', 'show');
     });
 });

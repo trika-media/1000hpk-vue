@@ -41,5 +41,13 @@
                 "roles": ["superadmin", "admin"]
             }
         ]
+    },
+    {
+        "type":"link",
+        "name":"Berita",
+        "route":"user.berita.index",
+        "active":"user.berita.index",
+        "icon":"fas fa-newspaper",
+        "roles": ["user"]
     }
 ]
