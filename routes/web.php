@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\ProfilController;
@@ -26,6 +27,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
     Route::middleware('roles:superadmin,admin')->group(function () {
+        // Berita
+        Route::resource('berita', BeritaController::class)
+            ->parameters(['berita' => 'berita']);
+        Route::post('berita/{berita}/status', [BeritaController::class, 'status'])
+            ->name('berita.status');
+
         Route::prefix('master')->name('master.')->group(function () {
             // Pengguna
             Route::resource('pengguna', PenggunaController::class);

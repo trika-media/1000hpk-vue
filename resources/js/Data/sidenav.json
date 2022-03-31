@@ -8,6 +8,14 @@
         "roles": ["superadmin", "admin", "user"]
     },
     {
+        "type":"link",
+        "name":"Berita",
+        "route":"berita.index",
+        "active":"berita.index",
+        "icon":"fas fa-newspaper",
+        "roles": ["superadmin", "admin"]
+    },
+    {
         "type":"dropdown",
         "name":"Master",
         "icon":"fas fa-database",
