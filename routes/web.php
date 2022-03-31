@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\PenyakitController;
@@ -33,6 +34,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ->parameters(['berita' => 'berita']);
         Route::post('berita/{berita}/status', [BeritaController::class, 'status'])
             ->name('berita.status');
+
+        // Mahasiswa
+        Route::resource('mahasiswa', MahasiswaController::class);
 
         Route::prefix('master')->name('master.')->group(function () {
             // Pengguna

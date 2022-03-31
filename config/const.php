@@ -12,4 +12,8 @@ return [
         'keturunan',
         'fisiologis'
     ],
+    'jenis-kelamin' => [
+        'laki-laki',
+        'perempuan',
+    ],
 ];

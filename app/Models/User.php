@@ -62,4 +62,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
         return $avatar;
     }
+
+    public function mahasiswa()
+    {
+        return $this->hasOne('App/Models/Mahasiswa', 'user_id', 'id');
+    }
 }

@@ -16,6 +16,14 @@
         "roles": ["superadmin", "admin"]
     },
     {
+        "type":"link",
+        "name":"Mahasiswa",
+        "route":"mahasiswa.index",
+        "active":"mahasiswa.index",
+        "icon":"fas fa-user-group",
+        "roles": ["superadmin", "admin"]
+    },
+    {
         "type":"dropdown",
         "name":"Master",
         "icon":"fas fa-database",
