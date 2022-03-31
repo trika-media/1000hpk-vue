@@ -57,5 +57,13 @@
         "active":"user.berita.index",
         "icon":"fas fa-newspaper",
         "roles": ["user"]
+    },
+    {
+        "type":"link",
+        "name":"Data Diri",
+        "route":"user.data-diri.index",
+        "active":"user.data-diri.index",
+        "icon":"fas fa-user-graduate",
+        "roles": ["user"]
     }
 ]

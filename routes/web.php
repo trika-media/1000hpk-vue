@@ -7,6 +7,7 @@ use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\PenyakitController;
 use App\Http\Controllers\PuskesmasController;
+use App\Http\Controllers\User\DataDiriController;
 use App\Http\Controllers\User\ListBeritaController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
@@ -58,5 +59,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('berita', ListBeritaController::class)
             ->parameters(['berita' => 'slug'])
             ->only('index', 'show');
+
+        Route::middleware('mahasiswa')->group(function () {
+            // Mahasiswa
+            Route::resource('data-diri', DataDiriController::class)
+                ->only('index', 'store');
+        });
     });
 });
