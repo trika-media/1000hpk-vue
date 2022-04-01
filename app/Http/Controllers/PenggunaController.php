@@ -15,9 +15,23 @@ class PenggunaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $pengguna = User::latest()->paginate(10);
+        $params = [
+            'query' => $request->q,
+            'perpage' => $request->per_page ?? 10,
+        ];
+
+        $pengguna = User::query()
+            ->when($params['query'], function ($query, $value) {
+                $query->where('name', 'LIKE', "%$value%")
+                    ->orWhere('email', 'LIKE', "%$value%")
+                    ->orWhere('role', 'LIKE', "%$value%");
+            })
+            ->latest()
+            ->paginate($params['perpage'])
+            ->withQueryString();
+
         return inertia('Master/Pengguna/Index', compact('pengguna'));
     }
 
