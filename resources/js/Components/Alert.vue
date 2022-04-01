@@ -1,3 +1,19 @@
+<script setup>
+const { usePage } = require("@inertiajs/inertia-vue3");
+const { onUpdated } = require("@vue/runtime-core");
+
+onUpdated(() => {
+    for(let index in usePage().props.value.flash){
+        if(usePage().props.value.flash?.[index]){
+            setTimeout(() => {
+                usePage().props.value.flash[index] = null
+            }, 5000);
+        }
+    }
+});
+
+</script>
+
 <template>
     <div class="alert alert-success" v-if="$page.props.flash.success">
         {{$page.props.flash.success}}
