@@ -28,10 +28,7 @@ const changePerPage = (row) => {
 }
 
 const reset = () => {
-    Inertia.get(route(here), {},{
-        preserveState: true,
-        preserveScroll: true
-    });
+    Inertia.get(route(here));
 }
 </script>
 
