@@ -1,14 +1,19 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/Authenticated.vue';
 import Pagination from '@/Components/Datatable/Pagination.vue';
+import Filter from '@/Components/Datatable/Filter.vue';
+import Rows from '@/Components/Datatable/Rows.vue';
 import Alert from '@/Components/Alert.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import {Inertia} from "@inertiajs/inertia";
 import { computed } from '@vue/runtime-core';
+
 const props = defineProps({
     penyakit: Object,
 });
+
 const penyakit = computed(() => props.penyakit);
+
 const destroy = (id) => {
     if (!confirm('Apakah Anda yakin?')) return;
     Inertia.delete(route('master.penyakit.destroy', {id}));
@@ -46,6 +51,8 @@ const destroy = (id) => {
 
         <Alert />
 
+        <Filter />
+
         <div class="card">
             <div class="table-responsive">
                 <table class="table table-bordered table-striped">
@@ -58,28 +65,30 @@ const destroy = (id) => {
                     </thead>
 
                     <tbody>
-                        <tr v-for="(penyakit, index) in penyakit.data" :key="penyakit.id">
-                            <td>{{ index + 1 }}</td>
-                            <td>{{ penyakit.kode }}</td>
-                            <td>{{ penyakit.nama }}</td>
-                            <td>{{ penyakit.kelompok.charAt(0).toUpperCase() + penyakit.kelompok.slice(1) }}</td>
-                            <td>
-                                <div class="btn-group">
+                        <Rows :data="penyakit.data" colspan="5">
+                            <tr v-for="(penyakit, index) in penyakit.data" :key="penyakit.id">
+                                <td>{{ index + 1 }}</td>
+                                <td>{{ penyakit.kode }}</td>
+                                <td>{{ penyakit.nama }}</td>
+                                <td>{{ penyakit.kelompok.charAt(0).toUpperCase() + penyakit.kelompok.slice(1) }}</td>
+                                <td>
+                                    <div class="btn-group">
 
-                                    <Link
-                                        class="btn btn-sm btn-secondary"
-                                        :href="route('master.penyakit.edit', penyakit.id)"
-                                    >
-                                        <i class="fas fa-edit"></i>
-                                    </Link>
+                                        <Link
+                                            class="btn btn-sm btn-secondary"
+                                            :href="route('master.penyakit.edit', penyakit.id)"
+                                        >
+                                            <i class="fas fa-edit"></i>
+                                        </Link>
 
-                                    <Link
-                                        @click="destroy(penyakit.id)"
-                                        class="btn btn-sm btn-danger"
-                                    ><i class="fas fa-trash"></i></Link>
-                                </div>
-                            </td>
-                        </tr>
+                                        <Link
+                                            @click="destroy(penyakit.id)"
+                                            class="btn btn-sm btn-danger"
+                                        ><i class="fas fa-trash"></i></Link>
+                                    </div>
+                                </td>
+                            </tr>
+                        </Rows>
                     </tbody>
                 </table>
             </div>

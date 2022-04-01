@@ -12,9 +12,22 @@ class PuskesmasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $puskesmas = Puskesmas::latest()->paginate(10);
+        $params = [
+            'query' => $request->q,
+            'perpage' => $request->per_page ?? 10,
+        ];
+
+        $puskesmas = Puskesmas::query()
+            ->when($params['query'], function ($query, $value) {
+                $query->where('nama', 'LIKE', "%$value%")
+                    ->orWhere('alamat', 'LIKE', "%$value%");
+            })
+            ->latest()
+            ->paginate($params['perpage'])
+            ->withQueryString();
+
         return inertia('Master/Puskesmas/Index', compact('puskesmas'));
     }
 

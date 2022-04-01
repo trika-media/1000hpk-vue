@@ -1,6 +1,8 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/Authenticated.vue';
 import Pagination from '@/Components/Datatable/Pagination.vue';
+import Filter from '@/Components/Datatable/Filter.vue';
+import Rows from '@/Components/Datatable/Rows.vue';
 import Alert from '@/Components/Alert.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import {Inertia} from "@inertiajs/inertia";
@@ -49,6 +51,8 @@ const destroy = (id) => {
 
         <Alert />
 
+        <Filter />
+
         <div class="card">
             <div class="table-responsive">
                 <table class="table table-bordered table-striped">
@@ -60,33 +64,35 @@ const destroy = (id) => {
                     </thead>
 
                     <tbody>
-                        <tr v-for="(puskesmas, index) in puskesmas.data" :key="puskesmas.id">
-                            <td>{{ index + 1 }}</td>
-                            <td>{{ puskesmas.nama }}</td>
-                            <td>{{ puskesmas.alamat }}</td>
-                            <td>
-                                <div class="btn-group">
-                                    <Link
-                                        class="btn btn-sm btn-gray-100"
-                                        :href="route('master.puskesmas.show', puskesmas.id)"
-                                    >
-                                        <i class="fas fa-eye"></i>
-                                    </Link>
+                        <Rows :data="puskesmas.data" colspan="4">
+                            <tr v-for="(puskesmas, index) in puskesmas.data" :key="puskesmas.id">
+                                <td>{{ index + 1 }}</td>
+                                <td>{{ puskesmas.nama }}</td>
+                                <td>{{ puskesmas.alamat }}</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <Link
+                                            class="btn btn-sm btn-gray-100"
+                                            :href="route('master.puskesmas.show', puskesmas.id)"
+                                        >
+                                            <i class="fas fa-eye"></i>
+                                        </Link>
 
-                                    <Link
-                                        class="btn btn-sm btn-secondary"
-                                        :href="route('master.puskesmas.edit', puskesmas.id)"
-                                    >
-                                        <i class="fas fa-edit"></i>
-                                    </Link>
+                                        <Link
+                                            class="btn btn-sm btn-secondary"
+                                            :href="route('master.puskesmas.edit', puskesmas.id)"
+                                        >
+                                            <i class="fas fa-edit"></i>
+                                        </Link>
 
-                                    <Link
-                                        @click="destroy(puskesmas.id)"
-                                        class="btn btn-sm btn-danger"
-                                    ><i class="fas fa-trash"></i></Link>
-                                </div>
-                            </td>
-                        </tr>
+                                        <Link
+                                            @click="destroy(puskesmas.id)"
+                                            class="btn btn-sm btn-danger"
+                                        ><i class="fas fa-trash"></i></Link>
+                                    </div>
+                                </td>
+                            </tr>
+                        </Rows>
                     </tbody>
                 </table>
             </div>

@@ -16,9 +16,24 @@ class MahasiswaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $mahasiswa = Mahasiswa::latest()->paginate(10);
+        $params = [
+            'query' => $request->q,
+            'perpage' => $request->per_page ?? 10,
+        ];
+
+        $mahasiswa = Mahasiswa::query()
+            ->when($params['query'], function ($query, $value) {
+                $query->where('nim', 'LIKE', "%$value%")
+                    ->orWhere('nama', 'LIKE', "%$value%")
+                    ->orWhere('angkatan', 'LIKE', "%$value%")
+                    ->orWhere('nomor_ponsel', 'LIKE', "%$value%");
+            })
+            ->latest()
+            ->paginate($params['perpage'])
+            ->withQueryString();
+
         return inertia('Mahasiswa/Index', compact('mahasiswa'));
     }
 

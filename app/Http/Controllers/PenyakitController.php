@@ -13,9 +13,23 @@ class PenyakitController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $penyakit = Penyakit::latest()->paginate(10);
+        $params = [
+            'query' => $request->q,
+            'perpage' => $request->per_page ?? 10,
+        ];
+
+        $penyakit = Penyakit::query()
+            ->when($params['query'], function ($query, $value) {
+                $query->where('kode', 'LIKE', "%$value%")
+                    ->orWhere('nama', 'LIKE', "%$value%")
+                    ->orWhere('kelompok', 'LIKE', "%$value%");
+            })
+            ->latest()
+            ->paginate($params['perpage'])
+            ->withQueryString();
+
         return inertia('Master/Penyakit/Index', compact('penyakit'));
     }
 

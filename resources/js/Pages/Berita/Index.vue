@@ -1,6 +1,8 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/Authenticated.vue';
 import Pagination from '@/Components/Datatable/Pagination.vue';
+import Filter from '@/Components/Datatable/Filter.vue';
+import Rows from '@/Components/Datatable/Rows.vue';
 import Alert from '@/Components/Alert.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import { Inertia } from "@inertiajs/inertia";
@@ -46,6 +48,8 @@ const changeStatus = (id) => {
 
         <Alert />
 
+        <Filter />
+
         <div class="card">
             <div class="table-responsive">
                 <table class="table table-bordered table-striped">
@@ -59,44 +63,46 @@ const changeStatus = (id) => {
                     </thead>
 
                     <tbody>
-                        <tr v-for="(berita, index) in berita.data" :key="berita.id">
-                            <td>{{ index + 1 }}</td>
-                            <td>{{ berita.judul }}</td>
-                            <td>{{ berita.penulis }}</td>
-                            <td>{{ moment(berita.created_at).format('LL') }}</td>
-                            <td>
-                                <Link
-                                    @click="changeStatus(berita.id)"
-                                    class="btn btn-sm btn text-white w-100"
-                                    :class="berita.tampil ? 'btn-success' : 'btn-primary'"
-                                >
-                                    {{ berita.tampil ? 'Aktif' : 'Nonaktif'  }}
-                                    <i class="fas fa-repeat ms-2"></i>
-                                </Link>
-                            </td>
-                            <td>
-                                <div class="btn-group">
+                        <Rows :data="berita.data" colspan="6">
+                            <tr v-for="(berita, index) in berita.data" :key="berita.id">
+                                <td>{{ index + 1 }}</td>
+                                <td>{{ berita.judul }}</td>
+                                <td>{{ berita.penulis }}</td>
+                                <td>{{ moment(berita.created_at).format('LL') }}</td>
+                                <td>
                                     <Link
-                                        class="btn btn-sm btn-gray-100"
-                                        :href="route('berita.show', berita.id)"
+                                        @click="changeStatus(berita.id)"
+                                        class="btn btn-sm btn text-white w-100"
+                                        :class="berita.tampil ? 'btn-success' : 'btn-primary'"
                                     >
-                                        <i class="fas fa-eye"></i>
+                                        {{ berita.tampil ? 'Aktif' : 'Nonaktif'  }}
+                                        <i class="fas fa-repeat ms-2"></i>
                                     </Link>
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <Link
+                                            class="btn btn-sm btn-gray-100"
+                                            :href="route('berita.show', berita.id)"
+                                        >
+                                            <i class="fas fa-eye"></i>
+                                        </Link>
 
-                                    <Link
-                                        class="btn btn-sm btn-secondary"
-                                        :href="route('berita.edit', berita.id)"
-                                    >
-                                        <i class="fas fa-edit"></i>
-                                    </Link>
+                                        <Link
+                                            class="btn btn-sm btn-secondary"
+                                            :href="route('berita.edit', berita.id)"
+                                        >
+                                            <i class="fas fa-edit"></i>
+                                        </Link>
 
-                                    <Link
-                                        @click="destroy(berita.id)"
-                                        class="btn btn-sm btn-danger"
-                                    ><i class="fas fa-trash"></i></Link>
-                                </div>
-                            </td>
-                        </tr>
+                                        <Link
+                                            @click="destroy(berita.id)"
+                                            class="btn btn-sm btn-danger"
+                                        ><i class="fas fa-trash"></i></Link>
+                                    </div>
+                                </td>
+                            </tr>
+                        </Rows>
                     </tbody>
                 </table>
             </div>

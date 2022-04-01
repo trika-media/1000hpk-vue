@@ -1,6 +1,8 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/Authenticated.vue';
 import Pagination from '@/Components/Datatable/Pagination.vue';
+import Filter from '@/Components/Datatable/Filter.vue';
+import Rows from '@/Components/Datatable/Rows.vue';
 import Alert from '@/Components/Alert.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import { Inertia } from "@inertiajs/inertia";
@@ -43,6 +45,8 @@ const changeStatus = (id) => {
 
         <Alert />
 
+        <Filter />
+
         <div class="card">
             <div class="table-responsive">
                 <table class="table table-bordered table-striped">
@@ -56,41 +60,43 @@ const changeStatus = (id) => {
                     </thead>
 
                     <tbody>
-                        <tr v-for="(mahasiswa, index) in mahasiswa.data" :key="mahasiswa.id">
-                            <td>{{ index + 1 }}</td>
-                            <td>{{ mahasiswa.nim }}</td>
-                            <td>
-                                {{ mahasiswa.nama }}
+                        <Rows :data="mahasiswa.data" colspan="6">
+                            <tr v-for="(mahasiswa, index) in mahasiswa.data" :key="mahasiswa.id">
+                                <td>{{ index + 1 }}</td>
+                                <td>{{ mahasiswa.nim }}</td>
+                                <td>
+                                    {{ mahasiswa.nama }}
 
-                                <span class="badge bg-success" title="Punya Akun" v-if="mahasiswa.user_id">
-                                    <i class="fas fa-check"></i>
-                                </span>
-                            </td>
-                            <td>{{ mahasiswa.nomor_ponsel }}</td>
-                            <td>{{ mahasiswa.angkatan }}</td>
-                            <td>
-                                <div class="btn-group">
-                                    <Link
-                                        class="btn btn-sm btn-gray-100"
-                                        :href="route('mahasiswa.show', mahasiswa.id)"
-                                    >
-                                        <i class="fas fa-eye"></i>
-                                    </Link>
+                                    <span class="badge bg-success" title="Punya Akun" v-if="mahasiswa.user_id">
+                                        <i class="fas fa-check"></i>
+                                    </span>
+                                </td>
+                                <td>{{ mahasiswa.nomor_ponsel }}</td>
+                                <td>{{ mahasiswa.angkatan }}</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <Link
+                                            class="btn btn-sm btn-gray-100"
+                                            :href="route('mahasiswa.show', mahasiswa.id)"
+                                        >
+                                            <i class="fas fa-eye"></i>
+                                        </Link>
 
-                                    <Link
-                                        class="btn btn-sm btn-secondary"
-                                        :href="route('mahasiswa.edit', mahasiswa.id)"
-                                    >
-                                        <i class="fas fa-edit"></i>
-                                    </Link>
+                                        <Link
+                                            class="btn btn-sm btn-secondary"
+                                            :href="route('mahasiswa.edit', mahasiswa.id)"
+                                        >
+                                            <i class="fas fa-edit"></i>
+                                        </Link>
 
-                                    <Link
-                                        @click="destroy(mahasiswa.id)"
-                                        class="btn btn-sm btn-danger"
-                                    ><i class="fas fa-trash"></i></Link>
-                                </div>
-                            </td>
-                        </tr>
+                                        <Link
+                                            @click="destroy(mahasiswa.id)"
+                                            class="btn btn-sm btn-danger"
+                                        ><i class="fas fa-trash"></i></Link>
+                                    </div>
+                                </td>
+                            </tr>
+                        </Rows>
                     </tbody>
                 </table>
             </div>
