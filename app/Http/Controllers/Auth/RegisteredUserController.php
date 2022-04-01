@@ -3,13 +3,15 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Mahasiswa;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
+use Illuminate\Validation\Rules\Password;
 use Inertia\Inertia;
 
 class RegisteredUserController extends Controller
@@ -35,16 +37,38 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'nim' => ['required', 'string', 'min:2', 'max:255', 'unique:mahasiswa,nim'],
+            'nama' => ['required', 'string', 'min:2', 'max:255'],
+            'angkatan' => ['required', 'numeric'],
+            'nomor_ponsel' => ['nullable', 'string', 'min:2', 'max:255'],
+
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'password' => ['required', 'confirmed', Password::defaults()],
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        try {
+            DB::beginTransaction();
+
+            $user = User::create([
+                'name' => $request->nama,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
+
+            Mahasiswa::create([
+                'user_id' => $user->id,
+
+                'nim' => $request->nim,
+                'nama' => $request->nama,
+                'angkatan' => $request->angkatan,
+                'nomor_ponsel' => $request->nomor_ponsel,
+            ]);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            session()->flash('danger', 'Gagal! ' . $e->getMessage());
+            return redirect()->back();
+        }
 
         event(new Registered($user));
 
