@@ -1,6 +1,8 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/Authenticated.vue';
 import Pagination from '@/Components/Datatable/Pagination.vue';
+import Filter from '@/Components/Datatable/Filter.vue';
+import Rows from '@/Components/Datatable/Rows.vue';
 import Alert from '@/Components/Alert.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import {Inertia} from "@inertiajs/inertia";
@@ -53,6 +55,8 @@ const changeStatus = (id) => {
 
         <Alert />
 
+        <Filter />
+
         <div class="card">
             <div class="table-responsive">
                 <table class="table table-bordered table-striped">
@@ -66,56 +70,58 @@ const changeStatus = (id) => {
                     </thead>
 
                     <tbody>
-                        <tr v-for="(pengguna, index) in pengguna.data" :key="pengguna.id">
-                            <td>{{ index + 1 }}</td>
-                            <td>
-                                <img
-                                    class="avatar rounded-circle me-2"
-                                    :alt="'Foto ' + pengguna.name"
-                                    :src="pengguna.avatar_url"
-                                >
-
-                                {{ pengguna.name }}
-                            </td>
-                            <td>{{ pengguna.email }}</td>
-                            <td>
-                                <span
-                                    class="badge"
-                                    :class="{
-                                        'bg-success' : pengguna.role == 'superadmin' ,
-                                        'bg-info' : pengguna.role == 'admin' ,
-                                        'bg-secondary' : pengguna.role == 'user'
-                                    }"
-                                >
-                                    {{ pengguna.role }}
-                                </span>
-                            </td>
-                            <td>
-                                <Link
-                                    @click="changeStatus(pengguna.id)"
-                                    class="btn btn-sm btn text-white w-100"
-                                    :class="pengguna.email_verified_at ? 'btn-success' : 'btn-primary'"
-                                >
-                                    {{ pengguna.email_verified_at ? 'Aktif' : 'Nonaktif'  }}
-                                    <i class="fas fa-repeat ms-2"></i>
-                                </Link>
-                            </td>
-                            <td>
-                                <div class="btn-group">
-                                    <Link
-                                        class="btn btn-sm btn-secondary"
-                                        :href="route('master.pengguna.edit', pengguna.id)"
+                        <Rows :data="pengguna.data" colspan="6">
+                            <tr v-for="(pengguna, index) in pengguna.data" :key="pengguna.id">
+                                <td>{{ index + 1 }}</td>
+                                <td>
+                                    <img
+                                        class="avatar rounded-circle me-2"
+                                        :alt="'Foto ' + pengguna.name"
+                                        :src="pengguna.avatar_url"
                                     >
-                                        <i class="fas fa-edit"></i>
-                                    </Link>
 
+                                    {{ pengguna.name }}
+                                </td>
+                                <td>{{ pengguna.email }}</td>
+                                <td>
+                                    <span
+                                        class="badge"
+                                        :class="{
+                                            'bg-success' : pengguna.role == 'superadmin' ,
+                                            'bg-info' : pengguna.role == 'admin' ,
+                                            'bg-secondary' : pengguna.role == 'user'
+                                        }"
+                                    >
+                                        {{ pengguna.role }}
+                                    </span>
+                                </td>
+                                <td>
                                     <Link
-                                        @click="destroy(pengguna.id)"
-                                        class="btn btn-sm btn-danger"
-                                    ><i class="fas fa-trash"></i></Link>
-                                </div>
-                            </td>
-                        </tr>
+                                        @click="changeStatus(pengguna.id)"
+                                        class="btn btn-sm btn text-white w-100"
+                                        :class="pengguna.email_verified_at ? 'btn-success' : 'btn-primary'"
+                                    >
+                                        {{ pengguna.email_verified_at ? 'Aktif' : 'Nonaktif'  }}
+                                        <i class="fas fa-repeat ms-2"></i>
+                                    </Link>
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <Link
+                                            class="btn btn-sm btn-secondary"
+                                            :href="route('master.pengguna.edit', pengguna.id)"
+                                        >
+                                            <i class="fas fa-edit"></i>
+                                        </Link>
+
+                                        <Link
+                                            @click="destroy(pengguna.id)"
+                                            class="btn btn-sm btn-danger"
+                                        ><i class="fas fa-trash"></i></Link>
+                                    </div>
+                                </td>
+                            </tr>
+                        </Rows>
                     </tbody>
                 </table>
             </div>
