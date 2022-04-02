@@ -24,6 +24,14 @@
         "roles": ["superadmin", "admin"]
     },
     {
+        "type":"link",
+        "name":"Ibu Hamil",
+        "route":"ibu-hamil.index",
+        "active":"ibu-hamil.index",
+        "icon":"fas fa-person-pregnant",
+        "roles": ["superadmin", "admin"]
+    },
+    {
         "type":"dropdown",
         "name":"Master",
         "icon":"fas fa-database",

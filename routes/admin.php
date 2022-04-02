@@ -21,6 +21,9 @@ Route::middleware('roles:superadmin,admin')->group(function () {
     # MAHASISWA
     Route::resource('mahasiswa', MahasiswaController::class);
 
+    # IBU HAMIL
+    Route::resource('ibu-hamil', IbuHamilController::class);
+
     Route::prefix('master')->name('master.')->group(function () {
         # PENGGUNA
         Route::resource('pengguna', PenggunaController::class);
