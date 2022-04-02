@@ -82,25 +82,29 @@ const props = defineProps({
                         <div class="small text-muted pe-4">Latitude/Longitude</div>
                         <h3 class="h6">{{ props.puskesmas.lat }}/{{ props.puskesmas.lng }}</h3>
 
-                        <LMap
-                            style="height: 300px"
-                            :minZoom="15"
-                            :zoom="18"
-                            :maxZoom="18"
-                            :center="[props.puskesmas.lat, props.puskesmas.lng]"
-                        >
-                            <LControlAttribution :prefix="$page.props.app.name"/>
+                        <div class="position-relative">
+                            <div class="position-absolute" style="top:0;left:0;bottom:0;right:0;z-index:1000"></div>
 
-                            <LTileLayer
-                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                                layer-type="base"
-                                name="OpenStreetMap"
-                            ></LTileLayer>
+                            <LMap
+                                style="height: 300px"
+                                :minZoom="15"
+                                :zoom="18"
+                                :maxZoom="18"
+                                :center="[props.puskesmas.lat, props.puskesmas.lng]"
+                            >
+                                <LControlAttribution :prefix="$page.props.app.name"/>
 
-                            <LMarker :lat-lng="[props.puskesmas.lat, props.puskesmas.lng]">
-                                <LTooltip>{{ props.puskesmas.nama }}</LTooltip>
-                            </LMarker>
-                        </LMap>
+                                <LTileLayer
+                                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                    layer-type="base"
+                                    name="OpenStreetMap"
+                                ></LTileLayer>
+
+                                <LMarker :lat-lng="[props.puskesmas.lat, props.puskesmas.lng]">
+                                    <LTooltip>{{ props.puskesmas.nama }}</LTooltip>
+                                </LMarker>
+                            </LMap>
+                        </div>
                     </div>
                 </li>
             </ul>
