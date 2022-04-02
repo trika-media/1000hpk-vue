@@ -1,14 +1,7 @@
 <?php
 
-use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\MahasiswaController;
-use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\ProfilController;
-use App\Http\Controllers\PenyakitController;
-use App\Http\Controllers\PuskesmasController;
-use App\Http\Controllers\User\DataDiriController;
-use App\Http\Controllers\User\ListBeritaController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,41 +22,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('profil', ProfilController::class)->only('index', 'update');
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
-    Route::middleware('roles:superadmin,admin')->group(function () {
-        // Berita
-        Route::resource('berita', BeritaController::class)
-            ->parameters(['berita' => 'berita']);
-        Route::post('berita/{berita}/status', [BeritaController::class, 'status'])
-            ->name('berita.status');
-
-        // Mahasiswa
-        Route::resource('mahasiswa', MahasiswaController::class);
-
-        Route::prefix('master')->name('master.')->group(function () {
-            // Pengguna
-            Route::resource('pengguna', PenggunaController::class);
-            Route::post('pengguna/{pengguna}/status', [PenggunaController::class, 'status'])
-                ->name('pengguna.status');
-
-            // Penyakit
-            Route::resource('penyakit', PenyakitController::class);
-
-            // Puskesmas
-            Route::resource('puskesmas', PuskesmasController::class)
-                ->parameters(['puskesmas' => 'puskesmas']);
-        });
-    });
-
-    Route::prefix('user')->name('user.')->middleware('roles:user,mahasiswa')->group(function () {
-        // Berita
-        Route::resource('berita', ListBeritaController::class)
-            ->parameters(['berita' => 'slug'])
-            ->only('index', 'show');
-
-        Route::middleware('mahasiswa')->group(function () {
-            // Mahasiswa
-            Route::resource('data-diri', DataDiriController::class)
-                ->only('index', 'store');
-        });
-    });
+    # IMPORT ROUTE
+    require 'admin.php';
+    require 'user.php';
 });
