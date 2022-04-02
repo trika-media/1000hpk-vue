@@ -59,7 +59,7 @@ const changeStatus = (id) => {
 
         <div class="card">
             <div class="table-responsive">
-                <table class="table table-bordered table-striped">
+                <table class="table table-sm table-bordered table-striped align-middle">
                     <thead>
                         <th width="10">No</th>
                         <th>Nama</th>
@@ -98,7 +98,7 @@ const changeStatus = (id) => {
                                 <td>
                                     <Link
                                         @click="changeStatus(pengguna.id)"
-                                        class="btn btn-sm btn text-white w-100"
+                                        class="btn btn-xs btn text-white w-100"
                                         :class="pengguna.email_verified_at ? 'btn-success' : 'btn-primary'"
                                     >
                                         {{ pengguna.email_verified_at ? 'Aktif' : 'Nonaktif'  }}
@@ -108,7 +108,7 @@ const changeStatus = (id) => {
                                 <td>
                                     <div class="btn-group">
                                         <Link
-                                            class="btn btn-sm btn-secondary"
+                                            class="btn btn-xs btn-secondary"
                                             :href="route('master.pengguna.edit', pengguna.id)"
                                         >
                                             <i class="fas fa-edit"></i>
@@ -116,7 +116,7 @@ const changeStatus = (id) => {
 
                                         <Link
                                             @click="destroy(pengguna.id)"
-                                            class="btn btn-sm btn-danger"
+                                            class="btn btn-xs btn-danger"
                                         ><i class="fas fa-trash"></i></Link>
                                     </div>
                                 </td>

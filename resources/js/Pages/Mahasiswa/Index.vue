@@ -49,7 +49,7 @@ const changeStatus = (id) => {
 
         <div class="card">
             <div class="table-responsive">
-                <table class="table table-bordered table-striped">
+                <table class="table table-sm table-bordered table-striped align-middle">
                     <thead>
                         <th width="10">No</th>
                         <th>NIM</th>
@@ -76,14 +76,14 @@ const changeStatus = (id) => {
                                 <td>
                                     <div class="btn-group">
                                         <Link
-                                            class="btn btn-sm btn-gray-100"
+                                            class="btn btn-xs btn-gray-100"
                                             :href="route('mahasiswa.show', mahasiswa.id)"
                                         >
                                             <i class="fas fa-eye"></i>
                                         </Link>
 
                                         <Link
-                                            class="btn btn-sm btn-secondary"
+                                            class="btn btn-xs btn-secondary"
                                             :href="route('mahasiswa.edit', mahasiswa.id)"
                                         >
                                             <i class="fas fa-edit"></i>
@@ -91,7 +91,7 @@ const changeStatus = (id) => {
 
                                         <Link
                                             @click="destroy(mahasiswa.id)"
-                                            class="btn btn-sm btn-danger"
+                                            class="btn btn-xs btn-danger"
                                         ><i class="fas fa-trash"></i></Link>
                                     </div>
                                 </td>

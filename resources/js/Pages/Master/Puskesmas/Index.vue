@@ -55,7 +55,7 @@ const destroy = (id) => {
 
         <div class="card">
             <div class="table-responsive">
-                <table class="table table-bordered table-striped">
+                <table class="table table-sm table-bordered table-striped align-middle">
                     <thead>
                         <th width="10">No</th>
                         <th>Nama</th>
@@ -72,14 +72,14 @@ const destroy = (id) => {
                                 <td>
                                     <div class="btn-group">
                                         <Link
-                                            class="btn btn-sm btn-gray-100"
+                                            class="btn btn-xs btn-gray-100"
                                             :href="route('master.puskesmas.show', puskesmas.id)"
                                         >
                                             <i class="fas fa-eye"></i>
                                         </Link>
 
                                         <Link
-                                            class="btn btn-sm btn-secondary"
+                                            class="btn btn-xs btn-secondary"
                                             :href="route('master.puskesmas.edit', puskesmas.id)"
                                         >
                                             <i class="fas fa-edit"></i>
@@ -87,7 +87,7 @@ const destroy = (id) => {
 
                                         <Link
                                             @click="destroy(puskesmas.id)"
-                                            class="btn btn-sm btn-danger"
+                                            class="btn btn-xs btn-danger"
                                         ><i class="fas fa-trash"></i></Link>
                                     </div>
                                 </td>

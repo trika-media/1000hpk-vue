@@ -11,7 +11,7 @@
     }
     &.btn-xs{
         padding: .2rem 0.35rem;
-        font-size: 0.55rem;
+        font-size: 0.75rem;
         box-shadow: none;
     }
     &.large-form-btn{
@@ -59,10 +59,10 @@
            background-color:  darken( $value, 5% );
            border-color: darken( $value, 5% );
         }
-    }   
+    }
 }
 
-// Brand (social) buttons 
+// Brand (social) buttons
 @each $color, $value in $brand-colors {
     .btn-#{$color} {
         @include button-variant($value, $value);

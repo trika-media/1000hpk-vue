@@ -52,7 +52,7 @@ const changeStatus = (id) => {
 
         <div class="card">
             <div class="table-responsive">
-                <table class="table table-bordered table-striped">
+                <table class="table table-sm table-bordered table-striped align-middle">
                     <thead>
                         <th width="10">No</th>
                         <th>Judul</th>
@@ -72,7 +72,7 @@ const changeStatus = (id) => {
                                 <td>
                                     <Link
                                         @click="changeStatus(berita.id)"
-                                        class="btn btn-sm btn text-white w-100"
+                                        class="btn btn-xs btn text-white w-100"
                                         :class="berita.tampil ? 'btn-success' : 'btn-primary'"
                                     >
                                         {{ berita.tampil ? 'Aktif' : 'Nonaktif'  }}
@@ -82,14 +82,14 @@ const changeStatus = (id) => {
                                 <td>
                                     <div class="btn-group">
                                         <Link
-                                            class="btn btn-sm btn-gray-100"
+                                            class="btn btn-xs btn-gray-100"
                                             :href="route('berita.show', berita.id)"
                                         >
                                             <i class="fas fa-eye"></i>
                                         </Link>
 
                                         <Link
-                                            class="btn btn-sm btn-secondary"
+                                            class="btn btn-xs btn-secondary"
                                             :href="route('berita.edit', berita.id)"
                                         >
                                             <i class="fas fa-edit"></i>
@@ -97,7 +97,7 @@ const changeStatus = (id) => {
 
                                         <Link
                                             @click="destroy(berita.id)"
-                                            class="btn btn-sm btn-danger"
+                                            class="btn btn-xs btn-danger"
                                         ><i class="fas fa-trash"></i></Link>
                                     </div>
                                 </td>

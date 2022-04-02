@@ -55,7 +55,7 @@ const destroy = (id) => {
 
         <div class="card">
             <div class="table-responsive">
-                <table class="table table-bordered table-striped">
+                <table class="table table-sm table-bordered table-striped align-middle">
                     <thead>
                         <th width="10">No</th>
                         <th>Kode</th>
@@ -73,9 +73,8 @@ const destroy = (id) => {
                                 <td>{{ penyakit.kelompok.charAt(0).toUpperCase() + penyakit.kelompok.slice(1) }}</td>
                                 <td>
                                     <div class="btn-group">
-
                                         <Link
-                                            class="btn btn-sm btn-secondary"
+                                            class="btn btn-xs btn-secondary"
                                             :href="route('master.penyakit.edit', penyakit.id)"
                                         >
                                             <i class="fas fa-edit"></i>
@@ -83,7 +82,7 @@ const destroy = (id) => {
 
                                         <Link
                                             @click="destroy(penyakit.id)"
-                                            class="btn btn-sm btn-danger"
+                                            class="btn btn-xs btn-danger"
                                         ><i class="fas fa-trash"></i></Link>
                                     </div>
                                 </td>
