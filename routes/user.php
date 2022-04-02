@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\User\DataDiriController;
+use App\Http\Controllers\User\IbuHamilController;
 use App\Http\Controllers\User\ListBeritaController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,5 +18,8 @@ Route::prefix('user')->name('user.')->middleware('roles:user,mahasiswa')->group(
         # DATA DIRI MAHASISWA
         Route::resource('data-diri', DataDiriController::class)
             ->only('index', 'store');
+
+        # IBU HAMIL
+        Route::resource('ibu-hamil', IbuHamilController::class);
     });
 });

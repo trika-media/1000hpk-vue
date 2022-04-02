@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\Controller;
 use App\Models\IbuHamil;
 use App\Models\KeluhanIbuHamil;
 use App\Models\Mahasiswa;
@@ -12,6 +13,23 @@ use Illuminate\Support\Facades\DB;
 
 class IbuHamilController extends Controller
 {
+    public function checkBukanMahasiswa($id)
+    {
+        $mahasiswa = Mahasiswa::query()
+            ->where('user_id', auth()->user()->id)
+            ->first();
+
+        $ibuhamil = IbuHamil::query()
+            ->where('id', $id)
+            ->where('mahasiswa_id', $mahasiswa->id)
+            ->first();
+
+        if (!$ibuhamil) {
+            session()->flash('warning', 'Bukan anda yang input data ini!');
+            return true;
+        }
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -24,8 +42,13 @@ class IbuHamilController extends Controller
             'perpage' => $request->per_page ?? 10,
         ];
 
+        $mahasiswa = Mahasiswa::query()
+            ->where('user_id', auth()->user()->id)
+            ->first();
+
         $ibuhamil = IbuHamil::query()
             ->with(['mahasiswa'])
+            ->where('mahasiswa_id', $mahasiswa->id)
             ->when($params['query'], function ($query, $value) {
                 $query->where('identitas', 'LIKE', "%$value%")
                     ->orWhere('nama', 'LIKE', "%$value%")
@@ -36,7 +59,7 @@ class IbuHamilController extends Controller
             ->paginate($params['perpage'])
             ->withQueryString();
 
-        return inertia('IbuHamil/Index', compact('ibuhamil'));
+        return inertia('User/IbuHamil/Index', compact('ibuhamil'));
     }
 
     /**
@@ -48,9 +71,8 @@ class IbuHamilController extends Controller
     {
         $puskesmas = Puskesmas::all(['id', 'nama']);
         $penyakit = Penyakit::all(['id', 'nama']);
-        $mahasiswa = Mahasiswa::all(['id', 'nama']);
 
-        return inertia('IbuHamil/Create', compact('puskesmas', 'penyakit', 'mahasiswa'));
+        return inertia('User/IbuHamil/Create', compact('puskesmas', 'penyakit'));
     }
 
     /**
@@ -61,6 +83,10 @@ class IbuHamilController extends Controller
      */
     public function store(Request $request)
     {
+        $mahasiswa = Mahasiswa::query()
+            ->where('user_id', auth()->user()->id)
+            ->first();
+
         $request->validate([
             'identitas' => ['required', 'string', 'min:2', 'max:225'],
             'nama' => ['required', 'string', 'min:2', 'max:225'],
@@ -79,8 +105,6 @@ class IbuHamilController extends Controller
 
             'lat' => ['required'],
             'lng' => ['required'],
-
-            'mahasiswa' => ['required', 'uuid'],
         ]);
 
         try {
@@ -102,7 +126,7 @@ class IbuHamilController extends Controller
                 'lat' => $request->lat,
                 'lng' => $request->lng,
 
-                'mahasiswa_id' => $request->mahasiswa,
+                'mahasiswa_id' => $mahasiswa->id,
                 'ditambahkan_oleh' => auth()->user()->name,
             ]);
 
@@ -121,7 +145,7 @@ class IbuHamilController extends Controller
         }
 
         session()->flash('success', 'Ibu hamil berhasil ditambahkan!');
-        return redirect()->route('ibu-hamil.index');
+        return redirect()->route('user.ibu-hamil.index');
     }
 
     /**
@@ -132,6 +156,10 @@ class IbuHamilController extends Controller
      */
     public function show(IbuHamil $ibuHamil)
     {
+        if ($this->checkBukanMahasiswa($ibuHamil->id)) {
+            return redirect()->route('user.ibu-hamil.index');
+        }
+
         $ibuHamil->load([
             'puskesmas',
             'kelurahan',
@@ -142,7 +170,7 @@ class IbuHamilController extends Controller
             'keluhan.penyakit',
         ]);
 
-        return inertia('IbuHamil/Show', compact('ibuHamil'));
+        return inertia('User/IbuHamil/Show', compact('ibuHamil'));
     }
 
     /**
@@ -153,12 +181,15 @@ class IbuHamilController extends Controller
      */
     public function edit(IbuHamil $ibuHamil)
     {
+        if ($this->checkBukanMahasiswa($ibuHamil->id)) {
+            return redirect()->route('user.ibu-hamil.index');
+        }
+
         $ibuHamil->load('keluhan');
         $puskesmas = Puskesmas::all(['id', 'nama']);
         $penyakit = Penyakit::all(['id', 'nama']);
-        $mahasiswa = Mahasiswa::all(['id', 'nama']);
 
-        return inertia('IbuHamil/Edit', compact('puskesmas', 'penyakit', 'mahasiswa', 'ibuHamil'));
+        return inertia('User/IbuHamil/Edit', compact('puskesmas', 'penyakit', 'ibuHamil'));
     }
 
     /**
@@ -170,6 +201,10 @@ class IbuHamilController extends Controller
      */
     public function update(Request $request, IbuHamil $ibuHamil)
     {
+        if ($this->checkBukanMahasiswa($ibuHamil->id)) {
+            return redirect()->route('user.ibu-hamil.index');
+        }
+
         $request->validate([
             'identitas' => ['required', 'string', 'min:2', 'max:225'],
             'nama' => ['required', 'string', 'min:2', 'max:225'],
@@ -188,8 +223,6 @@ class IbuHamilController extends Controller
 
             'lat' => ['required'],
             'lng' => ['required'],
-
-            'mahasiswa' => ['required', 'uuid'],
         ]);
 
         try {
@@ -210,8 +243,6 @@ class IbuHamilController extends Controller
 
                 'lat' => $request->lat,
                 'lng' => $request->lng,
-
-                'mahasiswa_id' => $request->mahasiswa,
             ]);
 
             $ids = [];
@@ -244,7 +275,7 @@ class IbuHamilController extends Controller
         }
 
         session()->flash('success', 'Ibu hamil berhasil disunting!');
-        return redirect()->route('ibu-hamil.index');
+        return redirect()->route('user.ibu-hamil.index');
     }
 
     /**
@@ -255,10 +286,14 @@ class IbuHamilController extends Controller
      */
     public function destroy(IbuHamil $ibuHamil)
     {
+        if ($this->checkBukanMahasiswa($ibuHamil->id)) {
+            return redirect()->route('user.ibu-hamil.index');
+        }
+
         $ibuHamil->keluhan()->delete();
         $ibuHamil->delete();
 
         session()->flash('success', 'Ibu hamil berhasil dihapus!');
-        return redirect()->route('ibu-hamil.index');
+        return redirect()->route('user.ibu-hamil.index');
     }
 }
