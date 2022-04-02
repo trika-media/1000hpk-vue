@@ -73,8 +73,8 @@ const submit = () => {
                         placeholder="masukkan nim"
                     >
 
-                    <div v-if="form.errors.nama" class="invalid-feedback">
-                        {{ form.errors.nama }}
+                    <div v-if="form.errors.nim" class="invalid-feedback">
+                        {{ form.errors.nim }}
                     </div>
                 </div>
             </div>
@@ -100,8 +100,8 @@ const submit = () => {
                         placeholder="masukkan angkatan"
                     >
 
-                    <div v-if="form.errors.nama" class="invalid-feedback">
-                        {{ form.errors.nama }}
+                    <div v-if="form.errors.angkatan" class="invalid-feedback">
+                        {{ form.errors.angkatan }}
                     </div>
                 </div>
             </div>
