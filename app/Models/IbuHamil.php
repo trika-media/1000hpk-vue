@@ -30,6 +30,10 @@ class IbuHamil extends Model
         'ditambahkan_oleh',
     ];
 
+    protected $appends = [
+        'keluhan_arr',
+    ];
+
     public function puskesmas()
     {
         return $this->belongsTo('App\Models\Puskesmas', 'puskesmas_id', 'id');
@@ -63,5 +67,17 @@ class IbuHamil extends Model
     public function keluhan()
     {
         return $this->hasMany('App\Models\KeluhanIbuHamil', 'ibu_hamil_id', 'id');
+    }
+
+    public function getKeluhanArrAttribute()
+    {
+        foreach ($this->keluhan as $keluhan) {
+            $keluhanArr[] = [
+                'id' => $keluhan->penyakit_id,
+                'nama' => $keluhan->nama_penyakit
+            ];
+        }
+
+        return $keluhanArr;
     }
 }

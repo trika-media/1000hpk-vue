@@ -153,7 +153,12 @@ class IbuHamilController extends Controller
      */
     public function edit(IbuHamil $ibuHamil)
     {
-        //
+        $ibuHamil->load('keluhan');
+        $puskesmas = Puskesmas::all(['id', 'nama']);
+        $penyakit = Penyakit::all(['id', 'nama']);
+        $mahasiswa = Mahasiswa::all(['id', 'nama']);
+
+        return inertia('IbuHamil/Edit', compact('puskesmas', 'penyakit', 'mahasiswa', 'ibuHamil'));
     }
 
     /**
@@ -165,7 +170,69 @@ class IbuHamilController extends Controller
      */
     public function update(Request $request, IbuHamil $ibuHamil)
     {
-        //
+        $request->validate([
+            'identitas' => ['required', 'string', 'min:2', 'max:225'],
+            'nama' => ['required', 'string', 'min:2', 'max:225'],
+            'nomor_ponsel' => ['required', 'string', 'min:2', 'max:225'],
+            'alamat' => ['required', 'string'],
+
+            'puskesmas' => ['required', 'uuid'],
+            'keluhan' => ['required', 'array'],
+            'keluhan.*.id' => ['required', 'uuid'],
+            'keluhan.*.nama' => ['required', 'string'],
+
+            'provinsi' => ['required', 'numeric'],
+            'kabupaten' => ['required', 'numeric'],
+            'kecamatan' => ['required', 'numeric'],
+            'kelurahan' => ['required', 'numeric'],
+
+            'lat' => ['required'],
+            'lng' => ['required'],
+
+            'mahasiswa' => ['required', 'uuid'],
+        ]);
+
+        try {
+            DB::beginTransaction();
+
+            $ibuHamil->update([
+                'identitas' => $request->identitas,
+                'nama' => $request->nama,
+                'alamat' => $request->alamat,
+                'nomor_ponsel' => $request->nomor_ponsel,
+
+                'puskesmas_id' => $request->puskesmas,
+
+                'kelurahan_id' => $request->kelurahan,
+                'kecamatan_id' => $request->kecamatan,
+                'kabupaten_id' => $request->kabupaten,
+                'provinsi_id' => $request->provinsi,
+
+                'lat' => $request->lat,
+                'lng' => $request->lng,
+
+                'mahasiswa_id' => $request->mahasiswa,
+            ]);
+
+            foreach ($request->keluhan as $keluhan) {
+                KeluhanIbuHamil::updateOrCreate(
+                    [
+                        'ibu_hamil_id' => $ibuHamil->id,
+                        'penyakit_id' => $keluhan['id'],
+                        'nama_penyakit' => $keluhan['nama'],
+                    ],
+                    []
+                );
+            }
+
+            DB::commit();
+        } catch (\Exception $e) {
+            session()->flash('danger', 'Gagal! ' . $e->getMessage());
+            return redirect()->back();
+        }
+
+        session()->flash('success', 'Ibu hamil berhasil disunting!');
+        return redirect()->route('ibu-hamil.index');
     }
 
     /**
