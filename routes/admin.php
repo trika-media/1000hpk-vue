@@ -6,6 +6,7 @@ use App\Http\Controllers\IbuHamilController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\PenyakitController;
+use App\Http\Controllers\ProdiController;
 use App\Http\Controllers\PuskesmasController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +30,10 @@ Route::middleware('roles:superadmin,admin')->group(function () {
         # FAKULTAS
         Route::resource('fakultas', FakultasController::class)
             ->parameters(['fakultas' => 'fakultas'])
+            ->except('show');
+
+        # PRODI
+        Route::resource('prodi', ProdiController::class)
             ->except('show');
 
         # PENGGUNA

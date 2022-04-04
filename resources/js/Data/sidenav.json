@@ -45,6 +45,12 @@
                 "roles": ["superadmin", "admin"]
             },
             {
+                "name": "Prodi",
+                "active": "master.prodi.*",
+                "route": "master.prodi.index",
+                "roles": ["superadmin", "admin"]
+            },
+            {
                 "name": "Pengguna",
                 "active": "master.pengguna.*",
                 "route": "master.pengguna.index",
