@@ -19,11 +19,11 @@ class KeluhanIbuHamil extends Model
 
     public function ibuhamil()
     {
-        return $this->belongsTo('App\Models\IbuHamil', 'ibu_hamil_id', 'id');
+        return $this->belongsTo('App\Models\IbuHamil', 'ibu_hamil_id', 'id')->withDefault();
     }
 
     public function penyakit()
     {
-        return $this->belongsTo('App\Models\Penyakit', 'penyakit_id', 'id');
+        return $this->belongsTo('App\Models\Penyakit', 'penyakit_id', 'id')->withDefault();
     }
 }

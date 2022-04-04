@@ -19,6 +19,6 @@ class Prodi extends Model
 
     public function fakultas()
     {
-        return $this->belongsTo('App\Models\Fakultas', 'fakultas_id', 'id');
+        return $this->belongsTo('App\Models\Fakultas', 'fakultas_id', 'id')->withDefault();
     }
 }

@@ -26,21 +26,21 @@ class Puskesmas extends Model
 
     public function kelurahan()
     {
-        return $this->belongsTo('App\Models\Village', 'kelurahan_id', 'id');
+        return $this->belongsTo('App\Models\Village', 'kelurahan_id', 'id')->withDefault();
     }
 
     public function kecamatan()
     {
-        return $this->belongsTo('App\Models\District', 'kecamatan_id', 'id');
+        return $this->belongsTo('App\Models\District', 'kecamatan_id', 'id')->withDefault();
     }
 
     public function kabupaten()
     {
-        return $this->belongsTo('App\Models\Regency', 'kabupaten_id', 'id');
+        return $this->belongsTo('App\Models\Regency', 'kabupaten_id', 'id')->withDefault();
     }
 
     public function provinsi()
     {
-        return $this->belongsTo('App\Models\Province', 'provinsi_id', 'id');
+        return $this->belongsTo('App\Models\Province', 'provinsi_id', 'id')->withDefault();
     }
 }

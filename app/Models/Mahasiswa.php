@@ -24,6 +24,6 @@ class Mahasiswa extends Model
 
     public function akun()
     {
-        return $this->belongsTo('App\Models\User', 'user_id', 'id');
+        return $this->belongsTo('App\Models\User', 'user_id', 'id')->withDefault();
     }
 }
