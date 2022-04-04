@@ -16,7 +16,7 @@ class Fakultas extends Model
         'nama',
     ];
 
-    public function keluhan()
+    public function prodi()
     {
         return $this->hasMany('App\Models\Prodi', 'fakultas_id', 'id');
     }
