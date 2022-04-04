@@ -23,7 +23,7 @@ class ProdiController extends Controller
         $prodi = Prodi::query()
             ->with(['fakultas'])
             ->when($params['query'], function ($query, $value) {
-                $query->where('kode', 'LIKE', "%$value%");
+                $query->where('nama', 'LIKE', "%$value%");
             })
             ->latest()
             ->paginate($params['perpage'])
