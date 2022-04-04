@@ -11,7 +11,7 @@
         "type": "link",
         "name": "Berita",
         "route": "berita.index",
-        "active": "berita.index",
+        "active": "berita.*",
         "icon": "fas fa-newspaper",
         "roles": ["superadmin", "admin"]
     },
@@ -19,7 +19,7 @@
         "type": "link",
         "name": "Mahasiswa",
         "route": "mahasiswa.index",
-        "active": "mahasiswa.index",
+        "active": "mahasiswa.*",
         "icon": "fas fa-user-group",
         "roles": ["superadmin", "admin"]
     },
@@ -27,7 +27,7 @@
         "type": "link",
         "name": "Ibu Hamil",
         "route": "ibu-hamil.index",
-        "active": "ibu-hamil.index",
+        "active": "ibu-hamil.*",
         "icon": "fas fa-person-pregnant",
         "roles": ["superadmin", "admin"]
     },
@@ -62,7 +62,7 @@
         "type": "link",
         "name": "Berita",
         "route": "user.berita.index",
-        "active": "user.berita.index",
+        "active": "user.berita.*",
         "icon": "fas fa-newspaper",
         "roles": ["user"]
     },
@@ -70,7 +70,7 @@
         "type": "link",
         "name": "Data Diri",
         "route": "user.data-diri.index",
-        "active": "user.data-diri.index",
+        "active": "user.data-diri.*",
         "icon": "fas fa-user-graduate",
         "roles": ["user"]
     },

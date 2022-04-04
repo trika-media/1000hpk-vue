@@ -48,6 +48,7 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
                 'avatar' => $request->user()?->avatarUrl,
+                'mahasiswa' => $request->user()->mahasiswa ?? false,
             ],
         ]);
     }

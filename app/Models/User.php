@@ -65,6 +65,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function mahasiswa()
     {
-        return $this->hasOne('App/Models/Mahasiswa', 'user_id', 'id');
+        return $this->hasOne('App\Models\Mahasiswa', 'user_id', 'id');
     }
 }
