@@ -35,7 +35,7 @@ const reset = () => {
     <div class="table-settings mb-4">
         <div class="row justify-content-between align-items-center">
             <div class="col-9 col-lg-8 d-md-flex">
-                <div class="input-group me-2 me-lg-3 fmxw-300">
+                <div class="input-group me-2 me-lg-3 w-50">
                     <span class="input-group-text">
                         <i class="fas fa-search"></i>
                     </span>
@@ -43,7 +43,6 @@ const reset = () => {
                     <input
                         type="date"
                         class="form-control"
-                        autofocus
                         v-model="tanggal_awal"
                         @change="filter"
                     />
@@ -51,7 +50,6 @@ const reset = () => {
                     <input
                         type="date"
                         class="form-control"
-                        autofocus
                         v-model="tanggal_akhir"
                         @change="filter"
                     />
