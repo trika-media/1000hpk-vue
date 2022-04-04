@@ -154,7 +154,7 @@ const ibuhamil = computed(() => props.ibuHamil);
 
                             <LMap
                                 style="height: 300px"
-                                :minZoom="15"
+                                :minZoom="5"
                                 :zoom="18"
                                 :maxZoom="18"
                                 :center="[ibuhamil.lat, ibuhamil.lng]"

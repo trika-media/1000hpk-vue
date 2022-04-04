@@ -1,11 +1,17 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/Authenticated.vue';
-import Alert from '@/Components/Alert.vue';
-import { Head, Link } from '@inertiajs/inertia-vue3';
+import AuthenticatedLayout from "@/Layouts/Authenticated.vue";
+import Alert from "@/Components/Alert.vue";
+import { Head, Link } from "@inertiajs/inertia-vue3";
 
-import "leaflet/dist/leaflet.css"
-import { LMap, LTileLayer, LMarker, LTooltip, LControl, LControlAttribution } from "@vue-leaflet/vue-leaflet";
-
+import "leaflet/dist/leaflet.css";
+import {
+    LMap,
+    LTileLayer,
+    LMarker,
+    LTooltip,
+    LControl,
+    LControlAttribution,
+} from "@vue-leaflet/vue-leaflet";
 
 const props = defineProps({
     puskesmas: Object,
@@ -16,16 +22,15 @@ const props = defineProps({
     <Head title="Detail Puskesmas" />
 
     <AuthenticatedLayout>
-        <template #heading>
-            Detail Data Puskesmas
-        </template>
+        <template #heading> Detail Data Puskesmas </template>
 
-        <template #subheading>
-            Menampilkan detail data puskesmas.
-        </template>
+        <template #subheading> Menampilkan detail data puskesmas. </template>
 
         <template #button>
-            <Link :href="route('master.puskesmas.index')" class="btn btn-sm btn-white d-inline-flex align-items-center">
+            <Link
+                :href="route('master.puskesmas.index')"
+                class="btn btn-sm btn-white d-inline-flex align-items-center"
+            >
                 <i class="fas fa-arrow-left me-3"></i>
                 Kembali
             </Link>
@@ -77,22 +82,43 @@ const props = defineProps({
                     </div>
                 </li>
 
-                <li class="list-group-item border-bottom p-3" v-if="props.puskesmas.lat && props.puskesmas.lng">
+                <li
+                    class="list-group-item border-bottom p-3"
+                    v-if="props.puskesmas.lat && props.puskesmas.lng"
+                >
                     <div>
-                        <div class="small text-muted pe-4">Latitude/Longitude</div>
-                        <h3 class="h6">{{ props.puskesmas.lat }}/{{ props.puskesmas.lng }}</h3>
+                        <div class="small text-muted pe-4">
+                            Latitude/Longitude
+                        </div>
+                        <h3 class="h6">
+                            {{ props.puskesmas.lat }}/{{ props.puskesmas.lng }}
+                        </h3>
 
                         <div class="position-relative">
-                            <div class="position-absolute" style="top:0;left:0;bottom:0;right:0;z-index:1000"></div>
+                            <div
+                                class="position-absolute"
+                                style="
+                                    top: 0;
+                                    left: 0;
+                                    bottom: 0;
+                                    right: 0;
+                                    z-index: 1000;
+                                "
+                            ></div>
 
                             <LMap
                                 style="height: 300px"
-                                :minZoom="15"
+                                :minZoom="5"
                                 :zoom="18"
                                 :maxZoom="18"
-                                :center="[props.puskesmas.lat, props.puskesmas.lng]"
+                                :center="[
+                                    props.puskesmas.lat,
+                                    props.puskesmas.lng,
+                                ]"
                             >
-                                <LControlAttribution :prefix="$page.props.app.name"/>
+                                <LControlAttribution
+                                    :prefix="$page.props.app.name"
+                                />
 
                                 <LTileLayer
                                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -100,8 +126,15 @@ const props = defineProps({
                                     name="OpenStreetMap"
                                 ></LTileLayer>
 
-                                <LMarker :lat-lng="[props.puskesmas.lat, props.puskesmas.lng]">
-                                    <LTooltip>{{ props.puskesmas.nama }}</LTooltip>
+                                <LMarker
+                                    :lat-lng="[
+                                        props.puskesmas.lat,
+                                        props.puskesmas.lng,
+                                    ]"
+                                >
+                                    <LTooltip>{{
+                                        props.puskesmas.nama
+                                    }}</LTooltip>
                                 </LMarker>
                             </LMap>
                         </div>

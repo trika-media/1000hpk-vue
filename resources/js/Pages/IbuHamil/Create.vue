@@ -1,14 +1,21 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/Authenticated.vue';
-import Alert from '@/Components/Alert.vue';
-import VueMultiselect from 'vue-multiselect'
-import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
-import { computed, onMounted, ref } from '@vue/runtime-core';
+import AuthenticatedLayout from "@/Layouts/Authenticated.vue";
+import Alert from "@/Components/Alert.vue";
+import VueMultiselect from "vue-multiselect";
+import { Head, Link, useForm } from "@inertiajs/inertia-vue3";
+import { computed, onMounted, ref } from "@vue/runtime-core";
 import { Inertia } from "@inertiajs/inertia";
-import { LMap, LTileLayer, LMarker, LTooltip, LControl, LControlAttribution } from "@vue-leaflet/vue-leaflet";
-import axios from 'axios';
-import "leaflet/dist/leaflet.css"
-import 'vue-multiselect/dist/vue-multiselect.css';
+import {
+    LMap,
+    LTileLayer,
+    LMarker,
+    LTooltip,
+    LControl,
+    LControlAttribution,
+} from "@vue-leaflet/vue-leaflet";
+import axios from "axios";
+import "leaflet/dist/leaflet.css";
+import "vue-multiselect/dist/vue-multiselect.css";
 
 const props = defineProps({
     puskesmas: Object,
@@ -18,8 +25,8 @@ const props = defineProps({
 
 const location = ref({
     available: false,
-    lat: '',
-    lng: '',
+    lat: "",
+    lng: "",
 });
 
 const data_provinsi = ref([]);
@@ -28,29 +35,29 @@ const data_kecamatan = ref([]);
 const data_kelurahan = ref([]);
 
 const form = useForm({
-    identitas:'',
-    nama:'',
-    alamat:'',
-    nomor_ponsel:'',
+    identitas: "",
+    nama: "",
+    alamat: "",
+    nomor_ponsel: "",
 
-    puskesmas: '',
+    puskesmas: "",
     keluhan: [],
 
-    provinsi: '',
-    kabupaten: '',
-    kecamatan: '',
-    kelurahan: '',
+    provinsi: "",
+    kabupaten: "",
+    kecamatan: "",
+    kelurahan: "",
 
-    lat: '',
-    lng: '',
+    lat: "",
+    lng: "",
 
-    mahasiswa:'',
+    mahasiswa: "",
 });
 
 const setPosition = (position) => {
     location.value.lat = position.coords.latitude;
     location.value.lng = position.coords.longitude;
-}
+};
 
 const getPosition = () => {
     if (navigator.geolocation) {
@@ -59,7 +66,7 @@ const getPosition = () => {
     } else {
         location.value.available = false;
     }
-}
+};
 
 const addMarker = (event) => {
     if (event.latlng) {
@@ -68,39 +75,43 @@ const addMarker = (event) => {
 
         updateFormLatLng(event.latlng);
     }
-}
+};
 
 const updateMarker = (position) => {
     location.value.lat = position.lat;
     location.value.lng = position.lng;
 
     updateFormLatLng(position);
-}
+};
 
 const updateFormLatLng = (position) => {
     form.lat = position.lat;
     form.lng = position.lng;
-}
+};
 
 const getProvinsi = () => {
-    axios.get(route('api.indonesia.provinsi'))
-        .then(response => (data_provinsi.value = response.data));
-}
+    axios
+        .get(route("api.indonesia.provinsi"))
+        .then((response) => (data_provinsi.value = response.data));
+};
 
 const getKabupaten = () => {
-    axios.get(route('api.indonesia.kabupaten', { provinsi: form.provinsi }))
-        .then(response => (data_kabupaten.value = response.data));
-}
+    axios
+        .get(route("api.indonesia.kabupaten", { provinsi: form.provinsi }))
+        .then((response) => (data_kabupaten.value = response.data));
+};
 
 const getKecamatan = () => {
-    axios.get(route('api.indonesia.kecamatan', { kabupaten: form.kabupaten }))
-        .then(response => (data_kecamatan.value = response.data));
-}
+    axios
+        .get(route("api.indonesia.kecamatan", { kabupaten: form.kabupaten }))
+        .then((response) => (data_kecamatan.value = response.data));
+};
 
 const getKelurahan = () => {
-    axios.get(route('api.indonesia.kelurahan', { kecamatan: form.kecamatan }))
-        .then(response => (data_kelurahan.value = response.data));
-}
+    axios
+        .get(route("api.indonesia.kelurahan", { kecamatan: form.kecamatan }))
+        .then((response) => (data_kelurahan.value = response.data));
+};
 
 onMounted(() => {
     getProvinsi();
@@ -108,7 +119,7 @@ onMounted(() => {
 });
 
 const submit = () => {
-    form.post(route('ibu-hamil.store'));
+    form.post(route("ibu-hamil.store"));
 };
 </script>
 
@@ -116,16 +127,15 @@ const submit = () => {
     <Head title="Tambah Ibu Hamil" />
 
     <AuthenticatedLayout>
-        <template #heading>
-            Tambah Data Ibu Hamil
-        </template>
+        <template #heading> Tambah Data Ibu Hamil </template>
 
-        <template #subheading>
-            Menambah data ibu hamil.
-        </template>
+        <template #subheading> Menambah data ibu hamil. </template>
 
         <template #button>
-            <Link :href="route('ibu-hamil.index')" class="btn btn-sm btn-white d-inline-flex align-items-center">
+            <Link
+                :href="route('ibu-hamil.index')"
+                class="btn btn-sm btn-white d-inline-flex align-items-center"
+            >
                 <i class="fas fa-arrow-left me-3"></i>
                 Kembali
             </Link>
@@ -133,29 +143,36 @@ const submit = () => {
 
         <Alert />
 
-        <form class="card" @submit.prevent="submit" >
+        <form class="card" @submit.prevent="submit">
             <div class="card-body">
                 <div class="form-group mb-4">
                     <label for="mahasiswa">Mahasiswa</label>
 
                     <div class="input-group">
                         <select
-                            :class="{'is-invalid': form.errors.mahasiswa}"
+                            :class="{ 'is-invalid': form.errors.mahasiswa }"
                             class="form-control"
                             id="mahasiswa"
                             v-model="form.mahasiswa"
                             required
                             autocomplete="mahasiswa-ibu-hamil"
                         >
-                            <option value="" selected disabled> - Pilih - </option>
+                            <option value="" selected disabled>
+                                - Pilih -
+                            </option>
                             <option
                                 v-for="mahasiswa in props.mahasiswa"
                                 :value="mahasiswa.id"
                                 :key="mahasiswa.id"
-                            >{{ mahasiswa.nama }}</option>
+                            >
+                                {{ mahasiswa.nama }}
+                            </option>
                         </select>
 
-                        <div v-if="form.errors.mahasiswa" class="invalid-feedback">
+                        <div
+                            v-if="form.errors.mahasiswa"
+                            class="invalid-feedback"
+                        >
                             {{ form.errors.mahasiswa }}
                         </div>
                     </div>
@@ -166,11 +183,15 @@ const submit = () => {
                 <div class="row">
                     <div class="col-12 col-lg-6">
                         <div class="form-group mb-4">
-                            <label for="identitas">Nomor Identitas (KTP / SIM / BPJS)</label>
+                            <label for="identitas"
+                                >Nomor Identitas (KTP / SIM / BPJS)</label
+                            >
 
                             <div class="input-group">
                                 <input
-                                    :class="{'is-invalid': form.errors.identitas}"
+                                    :class="{
+                                        'is-invalid': form.errors.identitas,
+                                    }"
                                     class="form-control"
                                     id="identitas"
                                     v-model="form.identitas"
@@ -179,9 +200,12 @@ const submit = () => {
                                     autofocus
                                     autocomplete="identitas"
                                     placeholder="masukkan identitas"
-                                >
+                                />
 
-                                <div v-if="form.errors.identitas" class="invalid-feedback">
+                                <div
+                                    v-if="form.errors.identitas"
+                                    class="invalid-feedback"
+                                >
                                     {{ form.errors.identitas }}
                                 </div>
                             </div>
@@ -192,7 +216,7 @@ const submit = () => {
 
                             <div class="input-group">
                                 <input
-                                    :class="{'is-invalid': form.errors.nama}"
+                                    :class="{ 'is-invalid': form.errors.nama }"
                                     class="form-control"
                                     id="nama"
                                     v-model="form.nama"
@@ -200,9 +224,12 @@ const submit = () => {
                                     required
                                     autocomplete="nama"
                                     placeholder="masukkan nama lengkap"
-                                >
+                                />
 
-                                <div v-if="form.errors.nama" class="invalid-feedback">
+                                <div
+                                    v-if="form.errors.nama"
+                                    class="invalid-feedback"
+                                >
                                     {{ form.errors.nama }}
                                 </div>
                             </div>
@@ -213,16 +240,21 @@ const submit = () => {
 
                             <div class="input-group">
                                 <input
-                                    :class="{'is-invalid': form.errors.nomor_ponsel}"
+                                    :class="{
+                                        'is-invalid': form.errors.nomor_ponsel,
+                                    }"
                                     class="form-control"
                                     id="nomor_ponsel"
                                     v-model="form.nomor_ponsel"
                                     type="text"
                                     autocomplete="nomor_ponsel"
                                     placeholder="masukkan nomor ponsel"
-                                >
+                                />
 
-                                <div v-if="form.errors.nomor_ponsel" class="invalid-feedback">
+                                <div
+                                    v-if="form.errors.nomor_ponsel"
+                                    class="invalid-feedback"
+                                >
                                     {{ form.errors.nomor_ponsel }}
                                 </div>
                             </div>
@@ -235,7 +267,9 @@ const submit = () => {
 
                             <div class="input-group">
                                 <textarea
-                                    :class="{'is-invalid': form.errors.alamat}"
+                                    :class="{
+                                        'is-invalid': form.errors.alamat,
+                                    }"
                                     class="form-control"
                                     id="alamat"
                                     v-model="form.alamat"
@@ -244,7 +278,10 @@ const submit = () => {
                                     rows="3"
                                 ></textarea>
 
-                                <div v-if="form.errors.alamat" class="invalid-feedback">
+                                <div
+                                    v-if="form.errors.alamat"
+                                    class="invalid-feedback"
+                                >
                                     {{ form.errors.alamat }}
                                 </div>
                             </div>
@@ -261,22 +298,31 @@ const submit = () => {
 
                             <div class="input-group">
                                 <select
-                                    :class="{'is-invalid': form.errors.puskesmas}"
+                                    :class="{
+                                        'is-invalid': form.errors.puskesmas,
+                                    }"
                                     class="form-control"
                                     id="puskesmas"
                                     v-model="form.puskesmas"
                                     required
                                     autocomplete="puskesmas-ibu-hamil"
                                 >
-                                    <option value="" selected disabled> - Pilih - </option>
+                                    <option value="" selected disabled>
+                                        - Pilih -
+                                    </option>
                                     <option
                                         v-for="puskesmas in props.puskesmas"
                                         :value="puskesmas.id"
                                         :key="puskesmas.id"
-                                    >{{ puskesmas.nama }}</option>
+                                    >
+                                        {{ puskesmas.nama }}
+                                    </option>
                                 </select>
 
-                                <div v-if="form.errors.puskesmas" class="invalid-feedback">
+                                <div
+                                    v-if="form.errors.puskesmas"
+                                    class="invalid-feedback"
+                                >
                                     {{ form.errors.puskesmas }}
                                 </div>
                             </div>
@@ -300,7 +346,10 @@ const submit = () => {
                                 selectLabel=""
                             />
 
-                            <div v-if="form.errors.keluhan" class="invalid-feedback">
+                            <div
+                                v-if="form.errors.keluhan"
+                                class="invalid-feedback"
+                            >
                                 {{ form.errors.keluhan }}
                             </div>
                         </div>
@@ -316,7 +365,9 @@ const submit = () => {
 
                             <div class="input-group">
                                 <select
-                                    :class="{'is-invalid': form.errors.provinsi}"
+                                    :class="{
+                                        'is-invalid': form.errors.provinsi,
+                                    }"
                                     class="form-control"
                                     id="provinsi"
                                     v-model="form.provinsi"
@@ -324,15 +375,22 @@ const submit = () => {
                                     autocomplete="provinsi-ibu-hamil"
                                     @change="getKabupaten"
                                 >
-                                    <option value="" selected disabled> - Pilih - </option>
+                                    <option value="" selected disabled>
+                                        - Pilih -
+                                    </option>
                                     <option
                                         v-for="provinsi in data_provinsi"
                                         :value="provinsi.id"
                                         :key="provinsi.id"
-                                    >{{ provinsi.name }}</option>
+                                    >
+                                        {{ provinsi.name }}
+                                    </option>
                                 </select>
 
-                                <div v-if="form.errors.provinsi" class="invalid-feedback">
+                                <div
+                                    v-if="form.errors.provinsi"
+                                    class="invalid-feedback"
+                                >
                                     {{ form.errors.provinsi }}
                                 </div>
                             </div>
@@ -343,7 +401,9 @@ const submit = () => {
 
                             <div class="input-group">
                                 <select
-                                    :class="{'is-invalid': form.errors.kabupaten}"
+                                    :class="{
+                                        'is-invalid': form.errors.kabupaten,
+                                    }"
                                     class="form-control"
                                     id="kabupaten"
                                     v-model="form.kabupaten"
@@ -351,15 +411,22 @@ const submit = () => {
                                     autocomplete="kabupaten-ibu-hamil"
                                     @change="getKecamatan"
                                 >
-                                    <option value="" selected disabled> - Pilih - </option>
+                                    <option value="" selected disabled>
+                                        - Pilih -
+                                    </option>
                                     <option
                                         v-for="kabupaten in data_kabupaten"
                                         :value="kabupaten.id"
                                         :key="kabupaten.id"
-                                    >{{ kabupaten.name }}</option>
+                                    >
+                                        {{ kabupaten.name }}
+                                    </option>
                                 </select>
 
-                                <div v-if="form.errors.kabupaten" class="invalid-feedback">
+                                <div
+                                    v-if="form.errors.kabupaten"
+                                    class="invalid-feedback"
+                                >
                                     {{ form.errors.kabupaten }}
                                 </div>
                             </div>
@@ -370,7 +437,9 @@ const submit = () => {
 
                             <div class="input-group">
                                 <select
-                                    :class="{'is-invalid': form.errors.kecamatan}"
+                                    :class="{
+                                        'is-invalid': form.errors.kecamatan,
+                                    }"
                                     class="form-control"
                                     id="kecamatan"
                                     v-model="form.kecamatan"
@@ -378,15 +447,22 @@ const submit = () => {
                                     autocomplete="kecamatan-ibu-hamil"
                                     @change="getKelurahan"
                                 >
-                                    <option value="" selected disabled> - Pilih - </option>
+                                    <option value="" selected disabled>
+                                        - Pilih -
+                                    </option>
                                     <option
                                         v-for="kecamatan in data_kecamatan"
                                         :value="kecamatan.id"
                                         :key="kecamatan.id"
-                                    >{{ kecamatan.name }}</option>
+                                    >
+                                        {{ kecamatan.name }}
+                                    </option>
                                 </select>
 
-                                <div v-if="form.errors.kecamatan" class="invalid-feedback">
+                                <div
+                                    v-if="form.errors.kecamatan"
+                                    class="invalid-feedback"
+                                >
                                     {{ form.errors.kecamatan }}
                                 </div>
                             </div>
@@ -397,31 +473,38 @@ const submit = () => {
 
                             <div class="input-group">
                                 <select
-                                    :class="{'is-invalid': form.errors.kelurahan}"
+                                    :class="{
+                                        'is-invalid': form.errors.kelurahan,
+                                    }"
                                     class="form-control"
                                     id="kelurahan"
                                     v-model="form.kelurahan"
                                     required
                                     autocomplete="kelurahan-ibu-hamil"
                                 >
-                                    <option value="" selected disabled> - Pilih - </option>
+                                    <option value="" selected disabled>
+                                        - Pilih -
+                                    </option>
                                     <option
                                         v-for="kelurahan in data_kelurahan"
                                         :value="kelurahan.id"
                                         :key="kelurahan.id"
-                                    >{{ kelurahan.name }}</option>
+                                    >
+                                        {{ kelurahan.name }}
+                                    </option>
                                 </select>
 
-                                <div v-if="form.errors.kelurahan" class="invalid-feedback">
+                                <div
+                                    v-if="form.errors.kelurahan"
+                                    class="invalid-feedback"
+                                >
                                     {{ form.errors.kelurahan }}
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-12 col-lg-6">
-
-                    </div>
+                    <div class="col-12 col-lg-6"></div>
                 </div>
             </div>
 
@@ -433,13 +516,15 @@ const submit = () => {
                         <div class="border rounded">
                             <LMap
                                 style="height: 300px"
-                                :minZoom="15"
+                                :minZoom="5"
                                 :zoom="18"
                                 :maxZoom="18"
                                 :center="[location.lat, location.lng]"
                                 @click="addMarker"
                             >
-                                <LControlAttribution :prefix="$page.props.app.name"/>
+                                <LControlAttribution
+                                    :prefix="$page.props.app.name"
+                                />
 
                                 <LTileLayer
                                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -447,11 +532,15 @@ const submit = () => {
                                     name="OpenStreetMap"
                                 ></LTileLayer>
 
-                                <LMarker :lat-lng="[location.lat, location.lng]" draggable @update:latLng="updateMarker">
+                                <LMarker
+                                    :lat-lng="[location.lat, location.lng]"
+                                    draggable
+                                    @update:latLng="updateMarker"
+                                >
                                     <LTooltip>
-                                        <b>Anda telah memilih:</b> <br>
-                                        Lat : {{ location.lat }} <br>
-                                        Lng : {{ location.lng }} <br>
+                                        <b>Anda telah memilih:</b> <br />
+                                        Lat : {{ location.lat }} <br />
+                                        Lng : {{ location.lng }} <br />
                                     </LTooltip>
                                 </LMarker>
                             </LMap>
@@ -466,7 +555,7 @@ const submit = () => {
 
                             <div class="input-group">
                                 <input
-                                    :class="{'is-invalid': form.errors.lat}"
+                                    :class="{ 'is-invalid': form.errors.lat }"
                                     class="form-control"
                                     id="lat"
                                     v-model="form.lat"
@@ -475,9 +564,12 @@ const submit = () => {
                                     placeholder="pilih pada peta ..."
                                     :readonly="location.available"
                                     required
-                                >
+                                />
 
-                                <div v-if="form.errors.lat" class="invalid-feedback">
+                                <div
+                                    v-if="form.errors.lat"
+                                    class="invalid-feedback"
+                                >
                                     {{ form.errors.lat }}
                                 </div>
                             </div>
@@ -490,7 +582,7 @@ const submit = () => {
 
                             <div class="input-group">
                                 <input
-                                    :class="{'is-invalid': form.errors.lng}"
+                                    :class="{ 'is-invalid': form.errors.lng }"
                                     class="form-control"
                                     id="lng"
                                     v-model="form.lng"
@@ -499,9 +591,12 @@ const submit = () => {
                                     placeholder="pilih pada peta ..."
                                     :readonly="location.available"
                                     required
-                                >
+                                />
 
-                                <div v-if="form.errors.lng" class="invalid-feedback">
+                                <div
+                                    v-if="form.errors.lng"
+                                    class="invalid-feedback"
+                                >
                                     {{ form.errors.lng }}
                                 </div>
                             </div>
@@ -516,7 +611,9 @@ const submit = () => {
                     class="btn btn-gray-800"
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
-                >Simpan</button>
+                >
+                    Simpan
+                </button>
             </div>
         </form>
     </AuthenticatedLayout>
@@ -524,21 +621,21 @@ const submit = () => {
 
 <style>
 .multiselect__tag {
-    background: #f0bc74!important;
+    background: #f0bc74 !important;
 }
 .multiselect__tags {
-    color: #6B7280!important;
-    border: 0.0625rem solid #D1D5DB!important;
+    color: #6b7280 !important;
+    border: 0.0625rem solid #d1d5db !important;
     border-radius: 0.5rem;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.07);
 }
 .multiselect__tag-icon::after {
-    color: #bf9355!important;
+    color: #bf9355 !important;
 }
 .multiselect__option--highlight {
-    background: #f0bc74!important;
+    background: #f0bc74 !important;
 }
 .multiselect__option--highlight::after {
-    background: #f0bc74!important;
+    background: #f0bc74 !important;
 }
 </style>

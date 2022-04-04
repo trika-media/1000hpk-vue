@@ -478,7 +478,7 @@ const submit = () => {
                         <div class="border rounded">
                             <LMap
                                 style="height: 300px"
-                                :minZoom="15"
+                                :minZoom="5"
                                 :zoom="18"
                                 :maxZoom="18"
                                 :center="[location.lat, location.lng]"
