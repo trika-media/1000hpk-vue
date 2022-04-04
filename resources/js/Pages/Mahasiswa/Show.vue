@@ -73,7 +73,21 @@ const props = defineProps({
                     </div>
                 </li>
 
-                <template v-if="props.mahasiswa.akun">
+                <li class="list-group-item border-bottom p-3">
+                    <div>
+                        <div class="small text-muted pe-4">Fakultas</div>
+                        <h3 class="h6" style="text-transform:capitalize">{{ props.mahasiswa.fakultas.nama || '-' }}</h3>
+                    </div>
+                </li>
+
+                <li class="list-group-item border-bottom p-3">
+                    <div>
+                        <div class="small text-muted pe-4">Prodi</div>
+                        <h3 class="h6" style="text-transform:capitalize">{{ props.mahasiswa.prodi.nama || '-' }}</h3>
+                    </div>
+                </li>
+
+                <template v-if="props.mahasiswa.user_id">
                     <li class="list-group-item border-bottom p-3 bg-gray-200">
                         <div>
                             <div class="small text-muted pe-4">Detail Akun</div>

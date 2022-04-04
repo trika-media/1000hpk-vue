@@ -1,41 +1,63 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/Authenticated.vue';
-import Alert from '@/Components/Alert.vue';
-import { Head, Link, useForm } from '@inertiajs/inertia-vue3'
-import { computed, ref } from '@vue/runtime-core';
+import AuthenticatedLayout from "@/Layouts/Authenticated.vue";
+import Alert from "@/Components/Alert.vue";
+import { Head, Link, useForm } from "@inertiajs/inertia-vue3";
+import { computed, onMounted, ref } from "@vue/runtime-core";
 
 const props = defineProps({
     jenis_kelamin: Array,
     pengguna: Object,
 });
 
+const data_fakultas = ref([]);
+const data_prodi = ref([]);
+
 const jenis_kelamin = computed(() => props.jenis_kelamin);
 const pengguna = computed(() => props.pengguna);
 const buat_akun = computed(() => {
     return {
-        none: 'Tanpa akun',
-        select: 'Pilih dari pengguna',
-        input: 'Tambah Baru'
-    }
+        none: "Tanpa akun",
+        select: "Pilih dari pengguna",
+        input: "Tambah Baru",
+    };
 });
 
+const getFakultas = () => {
+    axios
+        .get(route("api.master.fakultas"))
+        .then((response) => (data_fakultas.value = response.data));
+};
+
+const getProdi = () => {
+    axios
+        .get(route("api.master.prodi", { fakultas: form.fakultas }))
+        .then((response) => (data_prodi.value = response.data));
+};
+
 const form = useForm({
-    nim: '',
-    nama: '',
-    angkatan: '',
+    fakultas: "",
+    prodi: "",
+
+    nim: "",
+    nama: "",
+    angkatan: "",
     nomor_ponsel: null,
     alamat: null,
     jenis_kelamin: null,
 
-    akun: 'none', // none, select, input
-    akun_id: '',
+    akun: "none", // none, select, input
+    akun_id: "",
 
     akun_email: null,
     akun_password: null,
 });
 
+onMounted(() => {
+    getFakultas();
+});
+
 const submit = () => {
-    form.post(route('mahasiswa.store'));
+    form.post(route("mahasiswa.store"));
 };
 </script>
 
@@ -43,16 +65,15 @@ const submit = () => {
     <Head title="Tambah Mahasiswa" />
 
     <AuthenticatedLayout>
-        <template #heading>
-            Tambah Mahasiswa
-        </template>
+        <template #heading> Tambah Mahasiswa </template>
 
-        <template #subheading>
-            Menambah data mahasiswa.
-        </template>
+        <template #subheading> Menambah data mahasiswa. </template>
 
         <template #button>
-            <Link :href="route('mahasiswa.index')" class="btn btn-sm btn-white d-inline-flex align-items-center">
+            <Link
+                :href="route('mahasiswa.index')"
+                class="btn btn-sm btn-white d-inline-flex align-items-center"
+            >
                 <i class="fas fa-arrow-left me-3"></i>
                 Kembali
             </Link>
@@ -69,7 +90,7 @@ const submit = () => {
 
                             <div class="input-group">
                                 <input
-                                    :class="{'is-invalid': form.errors.nim}"
+                                    :class="{ 'is-invalid': form.errors.nim }"
                                     class="form-control"
                                     id="nim"
                                     v-model="form.nim"
@@ -78,9 +99,12 @@ const submit = () => {
                                     autofocus
                                     autocomplete="nim"
                                     placeholder="masukkan nim"
-                                >
+                                />
 
-                                <div v-if="form.errors.nim" class="invalid-feedback">
+                                <div
+                                    v-if="form.errors.nim"
+                                    class="invalid-feedback"
+                                >
                                     {{ form.errors.nim }}
                                 </div>
                             </div>
@@ -91,7 +115,7 @@ const submit = () => {
 
                             <div class="input-group">
                                 <input
-                                    :class="{'is-invalid': form.errors.nama}"
+                                    :class="{ 'is-invalid': form.errors.nama }"
                                     class="form-control"
                                     id="nama"
                                     v-model="form.nama"
@@ -99,9 +123,12 @@ const submit = () => {
                                     required
                                     autocomplete="nama"
                                     placeholder="masukkan nama lengkap"
-                                >
+                                />
 
-                                <div v-if="form.errors.nama" class="invalid-feedback">
+                                <div
+                                    v-if="form.errors.nama"
+                                    class="invalid-feedback"
+                                >
                                     {{ form.errors.nama }}
                                 </div>
                             </div>
@@ -112,7 +139,9 @@ const submit = () => {
 
                             <div class="input-group">
                                 <input
-                                    :class="{'is-invalid': form.errors.angkatan}"
+                                    :class="{
+                                        'is-invalid': form.errors.angkatan,
+                                    }"
                                     class="form-control"
                                     id="angkatan"
                                     v-model="form.angkatan"
@@ -122,9 +151,12 @@ const submit = () => {
                                     required
                                     autocomplete="angkatan"
                                     placeholder="masukkan angkatan"
-                                >
+                                />
 
-                                <div v-if="form.errors.angkatan" class="invalid-feedback">
+                                <div
+                                    v-if="form.errors.angkatan"
+                                    class="invalid-feedback"
+                                >
                                     {{ form.errors.angkatan }}
                                 </div>
                             </div>
@@ -135,16 +167,21 @@ const submit = () => {
 
                             <div class="input-group">
                                 <input
-                                    :class="{'is-invalid': form.errors.nomor_ponsel}"
+                                    :class="{
+                                        'is-invalid': form.errors.nomor_ponsel,
+                                    }"
                                     class="form-control"
                                     id="nomor_ponsel"
                                     v-model="form.nomor_ponsel"
                                     type="text"
                                     autocomplete="nomor_ponsel"
                                     placeholder="masukkan nomor ponsel"
-                                >
+                                />
 
-                                <div v-if="form.errors.nomor_ponsel" class="invalid-feedback">
+                                <div
+                                    v-if="form.errors.nomor_ponsel"
+                                    class="invalid-feedback"
+                                >
                                     {{ form.errors.nomor_ponsel }}
                                 </div>
                             </div>
@@ -157,7 +194,9 @@ const submit = () => {
 
                             <div class="input-group">
                                 <textarea
-                                    :class="{'is-invalid': form.errors.alamat}"
+                                    :class="{
+                                        'is-invalid': form.errors.alamat,
+                                    }"
                                     class="form-control"
                                     id="alamat"
                                     v-model="form.alamat"
@@ -166,7 +205,10 @@ const submit = () => {
                                     rows="3"
                                 ></textarea>
 
-                                <div v-if="form.errors.alamat" class="invalid-feedback">
+                                <div
+                                    v-if="form.errors.alamat"
+                                    class="invalid-feedback"
+                                >
                                     {{ form.errors.alamat }}
                                 </div>
                             </div>
@@ -175,22 +217,106 @@ const submit = () => {
                         <div class="form-group mb-4">
                             <label for="jenis_kelamin">Jenis Kelamin</label>
 
-                            <div class="form-check" v-for="item in jenis_kelamin" :key="item">
+                            <div
+                                class="form-check"
+                                v-for="item in jenis_kelamin"
+                                :key="item"
+                            >
                                 <input
                                     class="form-check-input"
                                     type="radio"
                                     v-model="form.jenis_kelamin"
                                     :id="'radio-' + item"
                                     :value="item"
-                                >
+                                />
 
                                 <label
                                     class="form-check-label"
                                     :for="'radio-' + item"
-                                    style="text-transform:capitalize;font-weight:normal"
+                                    style="
+                                        text-transform: capitalize;
+                                        font-weight: normal;
+                                    "
                                 >
                                     {{ item }}
                                 </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-12 col-lg-6">
+                        <div class="form-group mb-4">
+                            <label for="fakultas">Fakultas</label>
+
+                            <div class="input-group">
+                                <select
+                                    :class="{
+                                        'is-invalid': form.errors.fakultas,
+                                    }"
+                                    class="form-control"
+                                    id="fakultas"
+                                    v-model="form.fakultas"
+                                    required
+                                    autocomplete="fakultas"
+                                    @change="getProdi"
+                                >
+                                    <option value="" selected disabled>
+                                        - Pilih -
+                                    </option>
+                                    <option
+                                        v-for="fakultas in data_fakultas"
+                                        :value="fakultas.id"
+                                        :key="fakultas.id"
+                                    >
+                                        {{ fakultas.nama }}
+                                    </option>
+                                </select>
+
+                                <div
+                                    v-if="form.errors.fakultas"
+                                    class="invalid-feedback"
+                                >
+                                    {{ form.errors.fakultas }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6">
+                        <div class="form-group mb-4">
+                            <label for="prodi">Prodi</label>
+
+                            <div class="input-group">
+                                <select
+                                    :class="{ 'is-invalid': form.errors.prodi }"
+                                    class="form-control"
+                                    id="prodi"
+                                    v-model="form.prodi"
+                                    required
+                                    autocomplete="prodi"
+                                >
+                                    <option value="" selected disabled>
+                                        - Pilih -
+                                    </option>
+                                    <option
+                                        v-for="prodi in data_prodi"
+                                        :value="prodi.id"
+                                        :key="prodi.id"
+                                    >
+                                        {{ prodi.nama }}
+                                    </option>
+                                </select>
+
+                                <div
+                                    v-if="form.errors.prodi"
+                                    class="invalid-feedback"
+                                >
+                                    {{ form.errors.prodi }}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -214,12 +340,16 @@ const submit = () => {
                                     required
                                     autocomplete="akun"
                                 >
-                                    <option value="" selected disabled> - Pilih - </option>
+                                    <option value="" selected disabled>
+                                        - Pilih -
+                                    </option>
                                     <option
                                         v-for="(cara, index) in buat_akun"
                                         :value="index"
                                         :key="index"
-                                    >{{ cara }}</option>
+                                    >
+                                        {{ cara }}
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -227,7 +357,10 @@ const submit = () => {
                 </div>
             </div>
 
-            <div class="card-footer" v-if="['select', 'input'].includes(form.akun)">
+            <div
+                class="card-footer"
+                v-if="['select', 'input'].includes(form.akun)"
+            >
                 <div id="pilih" v-if="form.akun == 'select'">
                     <div class="row" v-if="pengguna.length">
                         <div class="col-12 col-lg-6">
@@ -236,22 +369,31 @@ const submit = () => {
 
                                 <div class="input-group">
                                     <select
-                                        :class="{'is-invalid': form.errors.akun_id}"
+                                        :class="{
+                                            'is-invalid': form.errors.akun_id,
+                                        }"
                                         class="form-control"
                                         id="akun_id"
                                         v-model="form.akun_id"
                                         required
                                         autocomplete="akun_id"
                                     >
-                                        <option value="" selected disabled> - Pilih - </option>
+                                        <option value="" selected disabled>
+                                            - Pilih -
+                                        </option>
                                         <option
                                             v-for="akun in pengguna"
                                             :value="akun.id"
                                             :key="akun.id"
-                                        >{{ akun.name }}</option>
+                                        >
+                                            {{ akun.name }}
+                                        </option>
                                     </select>
 
-                                    <div v-if="form.errors.akun_id" class="invalid-feedback">
+                                    <div
+                                        v-if="form.errors.akun_id"
+                                        class="invalid-feedback"
+                                    >
                                         {{ form.errors.akun_id }}
                                     </div>
                                 </div>
@@ -260,7 +402,13 @@ const submit = () => {
                     </div>
 
                     <div v-else>
-                        Akun dengan role user tidak ada / telah terpakai. Silahkan tambah di <Link class="text-secondary" :href="route('master.pengguna.create')">menu berikut</Link>.
+                        Akun dengan role user tidak ada / telah terpakai.
+                        Silahkan tambah di
+                        <Link
+                            class="text-secondary"
+                            :href="route('master.pengguna.create')"
+                            >menu berikut</Link
+                        >.
                     </div>
                 </div>
 
@@ -272,7 +420,10 @@ const submit = () => {
 
                                 <div class="input-group">
                                     <input
-                                        :class="{'is-invalid': form.errors.akun_email}"
+                                        :class="{
+                                            'is-invalid':
+                                                form.errors.akun_email,
+                                        }"
                                         class="form-control"
                                         id="akun_email"
                                         v-model="form.akun_email"
@@ -280,9 +431,12 @@ const submit = () => {
                                         required
                                         autocomplete="username"
                                         placeholder="email@contoh.com"
-                                    >
+                                    />
 
-                                    <div v-if="form.errors.akun_email" class="invalid-feedback">
+                                    <div
+                                        v-if="form.errors.akun_email"
+                                        class="invalid-feedback"
+                                    >
                                         {{ form.errors.akun_email }}
                                     </div>
                                 </div>
@@ -295,7 +449,10 @@ const submit = () => {
 
                                 <div class="input-group">
                                     <input
-                                        :class="{'is-invalid': form.errors.akun_password}"
+                                        :class="{
+                                            'is-invalid':
+                                                form.errors.akun_password,
+                                        }"
                                         class="form-control"
                                         id="akun_password"
                                         v-model="form.akun_password"
@@ -303,9 +460,12 @@ const submit = () => {
                                         required
                                         autocomplete="akun_password"
                                         placeholder="masukkan password"
-                                    >
+                                    />
 
-                                    <div v-if="form.errors.akun_password" class="invalid-feedback">
+                                    <div
+                                        v-if="form.errors.akun_password"
+                                        class="invalid-feedback"
+                                    >
                                         {{ form.errors.akun_password }}
                                     </div>
                                 </div>
@@ -321,7 +481,9 @@ const submit = () => {
                     class="btn btn-gray-800"
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
-                >Simpan</button>
+                >
+                    Simpan
+                </button>
             </div>
         </form>
     </AuthenticatedLayout>

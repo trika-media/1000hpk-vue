@@ -66,6 +66,9 @@ class MahasiswaController extends Controller
     public function store(Request $request)
     {
         $rules = [
+            'fakultas' => ['required', 'uuid'],
+            'prodi' => ['required', 'uuid'],
+
             'nim' => ['required', 'string', 'min:2', 'max:255', 'unique:mahasiswa,nim'],
             'nama' => ['required', 'string', 'min:2', 'max:255'],
             'angkatan' => ['required', 'numeric', 'digits:4'],
@@ -89,6 +92,9 @@ class MahasiswaController extends Controller
             DB::beginTransaction();
 
             $mahasiswa = Mahasiswa::create([
+                'fakultas_id' => $request->fakultas,
+                'prodi_id' => $request->prodi,
+
                 'nim' => $request->nim,
                 'nama' => $request->nama,
                 'angkatan' => $request->angkatan,
@@ -132,7 +138,9 @@ class MahasiswaController extends Controller
     public function show(Mahasiswa $mahasiswa)
     {
         $mahasiswa->load([
-            'akun'
+            'akun',
+            'fakultas',
+            'prodi',
         ]);
 
         return inertia('Mahasiswa/Show', compact('mahasiswa'));
@@ -170,6 +178,9 @@ class MahasiswaController extends Controller
     public function update(Request $request, Mahasiswa $mahasiswa)
     {
         $rules = [
+            'fakultas' => ['required', 'uuid'],
+            'prodi' => ['required', 'uuid'],
+
             'nim' => ['required', 'string', 'min:2', 'max:255', 'unique:mahasiswa,nim,' . $mahasiswa->id],
             'nama' => ['required', 'string', 'min:2', 'max:255'],
             'angkatan' => ['required', 'numeric', 'digits:4'],
@@ -188,6 +199,9 @@ class MahasiswaController extends Controller
             DB::beginTransaction();
 
             $mahasiswa->update([
+                'fakultas_id' => $request->fakultas,
+                'prodi_id' => $request->prodi,
+
                 'nim' => $request->nim,
                 'nama' => $request->nama,
                 'angkatan' => $request->angkatan,

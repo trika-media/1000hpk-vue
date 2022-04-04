@@ -37,6 +37,9 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'fakultas' => ['required', 'uuid'],
+            'prodi' => ['required', 'uuid'],
+
             'nim' => ['required', 'string', 'min:2', 'max:255', 'unique:mahasiswa,nim'],
             'nama' => ['required', 'string', 'min:2', 'max:255'],
             'angkatan' => ['required', 'numeric', 'digits:4'],
@@ -57,6 +60,8 @@ class RegisteredUserController extends Controller
 
             Mahasiswa::create([
                 'user_id' => $user->id,
+                'fakultas_id' => $request->fakultas,
+                'prodi_id' => $request->prodi,
 
                 'nim' => $request->nim,
                 'nama' => $request->nama,

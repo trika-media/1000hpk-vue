@@ -1,8 +1,8 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/Authenticated.vue';
-import Alert from '@/Components/Alert.vue';
-import { Head, Link, useForm } from '@inertiajs/inertia-vue3'
-import { computed, ref } from '@vue/runtime-core';
+import AuthenticatedLayout from "@/Layouts/Authenticated.vue";
+import Alert from "@/Components/Alert.vue";
+import { Head, Link, useForm } from "@inertiajs/inertia-vue3";
+import { computed, onMounted, ref } from "@vue/runtime-core";
 
 const props = defineProps({
     jenis_kelamin: Array,
@@ -10,10 +10,28 @@ const props = defineProps({
     mahasiswa: Object,
 });
 
+const data_fakultas = ref([]);
+const data_prodi = ref([]);
+
 const jenis_kelamin = computed(() => props.jenis_kelamin);
 const pengguna = computed(() => props.pengguna);
 
+const getFakultas = () => {
+    axios
+        .get(route("api.master.fakultas"))
+        .then((response) => (data_fakultas.value = response.data));
+};
+
+const getProdi = () => {
+    axios
+        .get(route("api.master.prodi", { fakultas: form.fakultas }))
+        .then((response) => (data_prodi.value = response.data));
+};
+
 const form = useForm({
+    fakultas: props.mahasiswa.fakultas_id,
+    prodi: props.mahasiswa.prodi_id,
+
     nim: props.mahasiswa.nim,
     nama: props.mahasiswa.nama,
     angkatan: props.mahasiswa.angkatan,
@@ -21,11 +39,16 @@ const form = useForm({
     alamat: props.mahasiswa.alamat,
     jenis_kelamin: props.mahasiswa.jenis_kelamin,
 
-    akun_id: props.mahasiswa.user_id || '',
+    akun_id: props.mahasiswa.user_id || "",
+});
+
+onMounted(() => {
+    getFakultas();
+    getProdi();
 });
 
 const submit = () => {
-    form.put(route('mahasiswa.update', { mahasiswa: props.mahasiswa.id }));
+    form.put(route("mahasiswa.update", { mahasiswa: props.mahasiswa.id }));
 };
 </script>
 
@@ -33,16 +56,15 @@ const submit = () => {
     <Head title="Sunting Mahasiswa" />
 
     <AuthenticatedLayout>
-        <template #heading>
-            Sunting Mahasiswa
-        </template>
+        <template #heading> Sunting Mahasiswa </template>
 
-        <template #subheading>
-            Menyunting data mahasiswa.
-        </template>
+        <template #subheading> Menyunting data mahasiswa. </template>
 
         <template #button>
-            <Link :href="route('mahasiswa.index')" class="btn btn-sm btn-white d-inline-flex align-items-center">
+            <Link
+                :href="route('mahasiswa.index')"
+                class="btn btn-sm btn-white d-inline-flex align-items-center"
+            >
                 <i class="fas fa-arrow-left me-3"></i>
                 Kembali
             </Link>
@@ -59,7 +81,7 @@ const submit = () => {
 
                             <div class="input-group">
                                 <input
-                                    :class="{'is-invalid': form.errors.nim}"
+                                    :class="{ 'is-invalid': form.errors.nim }"
                                     class="form-control"
                                     id="nim"
                                     v-model="form.nim"
@@ -68,9 +90,12 @@ const submit = () => {
                                     autofocus
                                     autocomplete="nim"
                                     placeholder="masukkan nim"
-                                >
+                                />
 
-                                <div v-if="form.errors.nama" class="invalid-feedback">
+                                <div
+                                    v-if="form.errors.nama"
+                                    class="invalid-feedback"
+                                >
                                     {{ form.errors.nama }}
                                 </div>
                             </div>
@@ -81,7 +106,7 @@ const submit = () => {
 
                             <div class="input-group">
                                 <input
-                                    :class="{'is-invalid': form.errors.nama}"
+                                    :class="{ 'is-invalid': form.errors.nama }"
                                     class="form-control"
                                     id="nama"
                                     v-model="form.nama"
@@ -89,9 +114,12 @@ const submit = () => {
                                     required
                                     autocomplete="nama"
                                     placeholder="masukkan nama lengkap"
-                                >
+                                />
 
-                                <div v-if="form.errors.nama" class="invalid-feedback">
+                                <div
+                                    v-if="form.errors.nama"
+                                    class="invalid-feedback"
+                                >
                                     {{ form.errors.nama }}
                                 </div>
                             </div>
@@ -102,7 +130,9 @@ const submit = () => {
 
                             <div class="input-group">
                                 <input
-                                    :class="{'is-invalid': form.errors.angkatan}"
+                                    :class="{
+                                        'is-invalid': form.errors.angkatan,
+                                    }"
                                     class="form-control"
                                     id="angkatan"
                                     v-model="form.angkatan"
@@ -112,9 +142,12 @@ const submit = () => {
                                     required
                                     autocomplete="angkatan"
                                     placeholder="masukkan angkatan"
-                                >
+                                />
 
-                                <div v-if="form.errors.nama" class="invalid-feedback">
+                                <div
+                                    v-if="form.errors.nama"
+                                    class="invalid-feedback"
+                                >
                                     {{ form.errors.nama }}
                                 </div>
                             </div>
@@ -125,16 +158,21 @@ const submit = () => {
 
                             <div class="input-group">
                                 <input
-                                    :class="{'is-invalid': form.errors.nomor_ponsel}"
+                                    :class="{
+                                        'is-invalid': form.errors.nomor_ponsel,
+                                    }"
                                     class="form-control"
                                     id="nomor_ponsel"
                                     v-model="form.nomor_ponsel"
                                     type="text"
                                     autocomplete="nomor_ponsel"
                                     placeholder="masukkan nomor ponsel"
-                                >
+                                />
 
-                                <div v-if="form.errors.nomor_ponsel" class="invalid-feedback">
+                                <div
+                                    v-if="form.errors.nomor_ponsel"
+                                    class="invalid-feedback"
+                                >
                                     {{ form.errors.nomor_ponsel }}
                                 </div>
                             </div>
@@ -147,7 +185,9 @@ const submit = () => {
 
                             <div class="input-group">
                                 <textarea
-                                    :class="{'is-invalid': form.errors.alamat}"
+                                    :class="{
+                                        'is-invalid': form.errors.alamat,
+                                    }"
                                     class="form-control"
                                     id="alamat"
                                     v-model="form.alamat"
@@ -156,7 +196,10 @@ const submit = () => {
                                     rows="3"
                                 ></textarea>
 
-                                <div v-if="form.errors.alamat" class="invalid-feedback">
+                                <div
+                                    v-if="form.errors.alamat"
+                                    class="invalid-feedback"
+                                >
                                     {{ form.errors.alamat }}
                                 </div>
                             </div>
@@ -165,22 +208,106 @@ const submit = () => {
                         <div class="form-group mb-4">
                             <label for="jenis_kelamin">Jenis Kelamin</label>
 
-                            <div class="form-check" v-for="item in jenis_kelamin" :key="item">
+                            <div
+                                class="form-check"
+                                v-for="item in jenis_kelamin"
+                                :key="item"
+                            >
                                 <input
                                     class="form-check-input"
                                     type="radio"
                                     v-model="form.jenis_kelamin"
                                     :id="'radio-' + item"
                                     :value="item"
-                                >
+                                />
 
                                 <label
                                     class="form-check-label"
                                     :for="'radio-' + item"
-                                    style="text-transform:capitalize;font-weight:normal"
+                                    style="
+                                        text-transform: capitalize;
+                                        font-weight: normal;
+                                    "
                                 >
                                     {{ item }}
                                 </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-12 col-lg-6">
+                        <div class="form-group mb-4">
+                            <label for="fakultas">Fakultas</label>
+
+                            <div class="input-group">
+                                <select
+                                    :class="{
+                                        'is-invalid': form.errors.fakultas,
+                                    }"
+                                    class="form-control"
+                                    id="fakultas"
+                                    v-model="form.fakultas"
+                                    required
+                                    autocomplete="fakultas"
+                                    @change="getProdi"
+                                >
+                                    <option value="" selected disabled>
+                                        - Pilih -
+                                    </option>
+                                    <option
+                                        v-for="fakultas in data_fakultas"
+                                        :value="fakultas.id"
+                                        :key="fakultas.id"
+                                    >
+                                        {{ fakultas.nama }}
+                                    </option>
+                                </select>
+
+                                <div
+                                    v-if="form.errors.fakultas"
+                                    class="invalid-feedback"
+                                >
+                                    {{ form.errors.fakultas }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6">
+                        <div class="form-group mb-4">
+                            <label for="prodi">Prodi</label>
+
+                            <div class="input-group">
+                                <select
+                                    :class="{ 'is-invalid': form.errors.prodi }"
+                                    class="form-control"
+                                    id="prodi"
+                                    v-model="form.prodi"
+                                    required
+                                    autocomplete="prodi"
+                                >
+                                    <option value="" selected disabled>
+                                        - Pilih -
+                                    </option>
+                                    <option
+                                        v-for="prodi in data_prodi"
+                                        :value="prodi.id"
+                                        :key="prodi.id"
+                                    >
+                                        {{ prodi.nama }}
+                                    </option>
+                                </select>
+
+                                <div
+                                    v-if="form.errors.prodi"
+                                    class="invalid-feedback"
+                                >
+                                    {{ form.errors.prodi }}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -193,11 +320,22 @@ const submit = () => {
                         <label for="akun">Sunting Akun</label>
                         <div v-if="props.mahasiswa.user_id">
                             Untuk menyunting akun mahasiswa dapat menuju
-                            <Link class="text-secondary" :href="route('master.pengguna.edit', { pengguna: props.mahasiswa.user_id })">tautan berikut</Link>.
+                            <Link
+                                class="text-secondary"
+                                :href="
+                                    route('master.pengguna.edit', {
+                                        pengguna: props.mahasiswa.user_id,
+                                    })
+                                "
+                                >tautan berikut</Link
+                            >.
                         </div>
 
                         <div v-else>
-                            <p class="mb-0">Akun mahasiswa belum ada, silahkan pilih akun di bawah.</p>
+                            <p class="mb-0">
+                                Akun mahasiswa belum ada, silahkan pilih akun di
+                                bawah.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -211,22 +349,31 @@ const submit = () => {
 
                             <div class="input-group">
                                 <select
-                                    :class="{'is-invalid': form.errors.akun_id}"
+                                    :class="{
+                                        'is-invalid': form.errors.akun_id,
+                                    }"
                                     class="form-control"
                                     id="akun_id"
                                     v-model="form.akun_id"
                                     required
                                     autocomplete="akun_id"
                                 >
-                                    <option value="" selected disabled> - Pilih - </option>
+                                    <option value="" selected disabled>
+                                        - Pilih -
+                                    </option>
                                     <option
                                         v-for="akun in pengguna"
                                         :value="akun.id"
                                         :key="akun.id"
-                                    >{{ akun.name }}</option>
+                                    >
+                                        {{ akun.name }}
+                                    </option>
                                 </select>
 
-                                <div v-if="form.errors.akun_id" class="invalid-feedback">
+                                <div
+                                    v-if="form.errors.akun_id"
+                                    class="invalid-feedback"
+                                >
                                     {{ form.errors.akun_id }}
                                 </div>
                             </div>
@@ -235,7 +382,13 @@ const submit = () => {
                 </div>
 
                 <div v-else>
-                    Akun dengan role user tidak ada / telah terpakai. Silahkan tambah di <Link class="text-secondary" :href="route('master.pengguna.create')">menu berikut</Link>.
+                    Akun dengan role user tidak ada / telah terpakai. Silahkan
+                    tambah di
+                    <Link
+                        class="text-secondary"
+                        :href="route('master.pengguna.create')"
+                        >menu berikut</Link
+                    >.
                 </div>
             </div>
 
@@ -245,7 +398,9 @@ const submit = () => {
                     class="btn btn-gray-800"
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
-                >Simpan</button>
+                >
+                    Simpan
+                </button>
             </div>
         </form>
     </AuthenticatedLayout>
