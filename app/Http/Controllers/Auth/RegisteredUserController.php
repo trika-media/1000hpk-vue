@@ -39,7 +39,7 @@ class RegisteredUserController extends Controller
         $request->validate([
             'nim' => ['required', 'string', 'min:2', 'max:255', 'unique:mahasiswa,nim'],
             'nama' => ['required', 'string', 'min:2', 'max:255'],
-            'angkatan' => ['required', 'numeric'],
+            'angkatan' => ['required', 'numeric', 'digits:4'],
             'nomor_ponsel' => ['nullable', 'string', 'min:2', 'max:255'],
 
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],

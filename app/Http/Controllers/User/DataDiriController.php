@@ -45,7 +45,7 @@ class DataDiriController extends Controller
         $request->validate([
             'nim' => ['required', 'string', 'min:2', 'max:255', 'unique:mahasiswa,nim,' . $mahasiswa->id],
             'nama' => ['required', 'string', 'min:2', 'max:255'],
-            'angkatan' => ['required', 'numeric'],
+            'angkatan' => ['required', 'numeric', 'digits:4'],
             'nomor_ponsel' => ['nullable', 'string', 'min:2', 'max:255'],
             'alamat' => ['nullable', 'string'],
             'jenis_kelamin' => ['nullable', 'string', Rule::in(config('const.jenis-kelamin'))],
