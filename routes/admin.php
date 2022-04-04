@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\FakultasController;
 use App\Http\Controllers\IbuHamilController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\PenggunaController;
@@ -25,13 +26,20 @@ Route::middleware('roles:superadmin,admin')->group(function () {
     Route::resource('ibu-hamil', IbuHamilController::class);
 
     Route::prefix('master')->name('master.')->group(function () {
+        # FAKULTAS
+        Route::resource('fakultas', FakultasController::class)
+            ->parameters(['fakultas' => 'fakultas'])
+            ->except('show');
+
         # PENGGUNA
-        Route::resource('pengguna', PenggunaController::class);
+        Route::resource('pengguna', PenggunaController::class)
+            ->except('show');
         Route::post('pengguna/{pengguna}/status', [PenggunaController::class, 'status'])
             ->name('pengguna.status');
 
         # PENYAKIT
-        Route::resource('penyakit', PenyakitController::class);
+        Route::resource('penyakit', PenyakitController::class)
+            ->except('show');
 
         # PUSKESMAS
         Route::resource('puskesmas', PuskesmasController::class)

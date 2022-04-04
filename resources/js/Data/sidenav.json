@@ -39,6 +39,12 @@
         "active": "master.*",
         "menus": [
             {
+                "name": "Fakultas",
+                "active": "master.fakultas.*",
+                "route": "master.fakultas.index",
+                "roles": ["superadmin", "admin"]
+            },
+            {
                 "name": "Pengguna",
                 "active": "master.pengguna.*",
                 "route": "master.pengguna.index",
