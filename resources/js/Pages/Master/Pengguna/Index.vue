@@ -41,16 +41,6 @@ const changeStatus = (id) => {
                 <i class="fas fa-plus me-3"></i>
                 Tambah Data Pengguna
             </Link>
-
-            <div class="btn-group ms-2 ms-lg-3">
-                <button type="button" class="btn btn-sm btn-outline-gray-600">
-                    Import
-                </button>
-
-                <button type="button" class="btn btn-sm btn-outline-gray-600">
-                    Export
-                </button>
-            </div>
         </template>
 
         <Alert />
