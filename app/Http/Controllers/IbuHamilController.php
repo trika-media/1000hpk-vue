@@ -62,7 +62,7 @@ class IbuHamilController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'identitas' => ['required', 'string', 'min:2', 'max:225'],
+            'identitas' => ['required', 'string', 'min:2', 'max:225', 'unique:ibu_hamil,identitas'],
             'nama' => ['required', 'string', 'min:2', 'max:225'],
             'nomor_ponsel' => ['required', 'string', 'min:2', 'max:225'],
             'tanggal_lahir' => ['required', 'string', 'date_format:Y-m-d'],
@@ -173,7 +173,7 @@ class IbuHamilController extends Controller
     public function update(Request $request, IbuHamil $ibuHamil)
     {
         $request->validate([
-            'identitas' => ['required', 'string', 'min:2', 'max:225'],
+            'identitas' => ['required', 'string', 'min:2', 'max:225', 'unique:ibu_hamil,identitas,' . $ibuHamil->id],
             'nama' => ['required', 'string', 'min:2', 'max:225'],
             'nomor_ponsel' => ['required', 'string', 'min:2', 'max:225'],
             'tanggal_lahir' => ['required', 'string', 'date_format:Y-m-d'],
