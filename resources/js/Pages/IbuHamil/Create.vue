@@ -39,6 +39,7 @@ const form = useForm({
     nama: "",
     alamat: "",
     nomor_ponsel: "",
+    tanggal_lahir: "",
 
     puskesmas: "",
     keluhan: [],
@@ -262,6 +263,30 @@ const submit = () => {
                     </div>
 
                     <div class="col-12 col-lg-6">
+                        <div class="form-group mb-4">
+                            <label for="tanggal_lahir">Tanggal Lahir</label>
+
+                            <div class="input-group">
+                                <input
+                                    :class="{
+                                        'is-invalid': form.errors.tanggal_lahir,
+                                    }"
+                                    class="form-control"
+                                    id="tanggal_lahir"
+                                    v-model="form.tanggal_lahir"
+                                    type="date"
+                                    autocomplete="tanggal_lahir"
+                                />
+
+                                <div
+                                    v-if="form.errors.tanggal_lahir"
+                                    class="invalid-feedback"
+                                >
+                                    {{ form.errors.tanggal_lahir }}
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="form-group mb-4">
                             <label for="alamat">Alamat</label>
 

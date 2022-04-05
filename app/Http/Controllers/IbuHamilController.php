@@ -65,6 +65,7 @@ class IbuHamilController extends Controller
             'identitas' => ['required', 'string', 'min:2', 'max:225'],
             'nama' => ['required', 'string', 'min:2', 'max:225'],
             'nomor_ponsel' => ['required', 'string', 'min:2', 'max:225'],
+            'tanggal_lahir' => ['required', 'string', 'date_format:Y-m-d'],
             'alamat' => ['required', 'string'],
 
             'puskesmas' => ['required', 'uuid'],
@@ -91,6 +92,7 @@ class IbuHamilController extends Controller
                 'nama' => $request->nama,
                 'alamat' => $request->alamat,
                 'nomor_ponsel' => $request->nomor_ponsel,
+                'tanggal_lahir' => $request->tanggal_lahir,
 
                 'puskesmas_id' => $request->puskesmas,
 
@@ -174,6 +176,7 @@ class IbuHamilController extends Controller
             'identitas' => ['required', 'string', 'min:2', 'max:225'],
             'nama' => ['required', 'string', 'min:2', 'max:225'],
             'nomor_ponsel' => ['required', 'string', 'min:2', 'max:225'],
+            'tanggal_lahir' => ['required', 'string', 'date_format:Y-m-d'],
             'alamat' => ['required', 'string'],
 
             'puskesmas' => ['required', 'uuid'],
@@ -200,6 +203,7 @@ class IbuHamilController extends Controller
                 'nama' => $request->nama,
                 'alamat' => $request->alamat,
                 'nomor_ponsel' => $request->nomor_ponsel,
+                'tanggal_lahir' => $request->tanggal_lahir,
 
                 'puskesmas_id' => $request->puskesmas,
 

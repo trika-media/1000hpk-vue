@@ -40,6 +40,7 @@ const form = useForm({
     nama: props.ibuHamil.nama,
     alamat: props.ibuHamil.alamat,
     nomor_ponsel: props.ibuHamil.nomor_ponsel,
+    tanggal_lahir: props.ibuHamil.tanggal_lahir,
 
     puskesmas: props.ibuHamil.puskesmas_id,
     keluhan: props.ibuHamil.keluhan_arr,
@@ -270,6 +271,30 @@ const submit = () => {
                     </div>
 
                     <div class="col-12 col-lg-6">
+                        <div class="form-group mb-4">
+                            <label for="tanggal_lahir">Tanggal Lahir</label>
+
+                            <div class="input-group">
+                                <input
+                                    :class="{
+                                        'is-invalid': form.errors.tanggal_lahir,
+                                    }"
+                                    class="form-control"
+                                    id="tanggal_lahir"
+                                    v-model="form.tanggal_lahir"
+                                    type="date"
+                                    autocomplete="tanggal_lahir"
+                                />
+
+                                <div
+                                    v-if="form.errors.tanggal_lahir"
+                                    class="invalid-feedback"
+                                >
+                                    {{ form.errors.tanggal_lahir }}
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="form-group mb-4">
                             <label for="alamat">Alamat</label>
 

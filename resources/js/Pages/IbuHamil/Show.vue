@@ -13,6 +13,9 @@ import {
     LControlAttribution,
 } from "@vue-leaflet/vue-leaflet";
 import { computed } from "@vue/runtime-core";
+import moment from "moment";
+
+moment.locale("id");
 
 const props = defineProps({
     ibuHamil: Object,
@@ -68,6 +71,15 @@ const ibuhamil = computed(() => props.ibuHamil);
                     <div>
                         <div class="small text-muted pe-4">Nomor Ponsel</div>
                         <h3 class="h6">{{ ibuhamil.nomor_ponsel }}</h3>
+                    </div>
+                </li>
+
+                <li class="list-group-item border-bottom p-3">
+                    <div>
+                        <div class="small text-muted pe-4">Tanggal Lahir</div>
+                        <h3 class="h6">
+                            {{ moment(ibuhamil.tanggal_lahir).format("LL") }}
+                        </h3>
                     </div>
                 </li>
 

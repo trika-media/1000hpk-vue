@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('nama');
             $table->string('nomor_ponsel')->nullable();
             $table->text('alamat')->nullable();
+            $table->date('tanggal_lahir')->nullable();
 
             $table->foreignUuid('puskesmas_id')->nullable();
             $table->foreignUuid('kelurahan_id')->nullable();

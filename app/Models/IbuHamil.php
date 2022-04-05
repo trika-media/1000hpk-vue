@@ -16,6 +16,7 @@ class IbuHamil extends Model
         'nama',
         'alamat',
         'nomor_ponsel',
+        'tanggal_lahir',
 
         'puskesmas_id',
         'kelurahan_id',
@@ -28,6 +29,10 @@ class IbuHamil extends Model
 
         'mahasiswa_id',
         'ditambahkan_oleh',
+    ];
+
+    protected $casts = [
+        'tanggal_lahir' => 'date:Y-m-d',
     ];
 
     protected $appends = [
