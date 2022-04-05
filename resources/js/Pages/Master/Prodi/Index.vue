@@ -4,6 +4,7 @@ import Pagination from "@/Components/Datatable/Pagination.vue";
 import Filter from "@/Components/Datatable/Filter.vue";
 import Rows from "@/Components/Datatable/Rows.vue";
 import Alert from "@/Components/Alert.vue";
+import ImportModal from "@/Components/Datatable/ImportModal.vue";
 import { Head, Link } from "@inertiajs/inertia-vue3";
 import { Inertia } from "@inertiajs/inertia";
 import { computed } from "@vue/runtime-core";
@@ -38,13 +39,22 @@ const destroy = (id) => {
             </Link>
 
             <div class="btn-group ms-2 ms-lg-3">
-                <button type="button" class="btn btn-sm btn-outline-gray-600">
+                <button
+                    type="button"
+                    class="btn btn-sm btn-outline-gray-600"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modal-import-prodi"
+                >
                     Import
                 </button>
 
-                <button type="button" class="btn btn-sm btn-outline-gray-600">
+                <a
+                    :href="route('excel.export.prodi')"
+                    type="button"
+                    class="btn btn-sm btn-outline-gray-600"
+                >
                     Export
-                </button>
+                </a>
             </div>
         </template>
 
@@ -109,5 +119,12 @@ const destroy = (id) => {
                 />
             </div>
         </div>
+
+        <ImportModal
+            target="modal-import-prodi"
+            title="Import Data Prodi"
+            template="prodi.xlsx"
+            route="excel.import.prodi"
+        />
     </AuthenticatedLayout>
 </template>
