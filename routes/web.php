@@ -25,4 +25,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
     # IMPORT ROUTE
     require 'admin.php';
     require 'user.php';
+    require 'excel.php';
 });
