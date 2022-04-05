@@ -1,12 +1,13 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/Authenticated.vue';
-import Pagination from '@/Components/Datatable/Pagination.vue';
-import Filter from '@/Components/Datatable/Filter.vue';
-import Rows from '@/Components/Datatable/Rows.vue';
-import Alert from '@/Components/Alert.vue';
-import { Head, Link } from '@inertiajs/inertia-vue3';
-import {Inertia} from "@inertiajs/inertia";
-import { computed } from '@vue/runtime-core';
+import AuthenticatedLayout from "@/Layouts/Authenticated.vue";
+import Pagination from "@/Components/Datatable/Pagination.vue";
+import Filter from "@/Components/Datatable/Filter.vue";
+import Rows from "@/Components/Datatable/Rows.vue";
+import Alert from "@/Components/Alert.vue";
+import ImportModal from "@/Components/Datatable/ImportModal.vue";
+import { Head, Link } from "@inertiajs/inertia-vue3";
+import { Inertia } from "@inertiajs/inertia";
+import { computed } from "@vue/runtime-core";
 
 const props = defineProps({
     puskesmas: Object,
@@ -15,37 +16,45 @@ const props = defineProps({
 const puskesmas = computed(() => props.puskesmas);
 
 const destroy = (id) => {
-    if (!confirm('Apakah Anda yakin?')) return;
-    Inertia.delete(route('master.puskesmas.destroy', {id}));
-}
+    if (!confirm("Apakah Anda yakin?")) return;
+    Inertia.delete(route("master.puskesmas.destroy", { id }));
+};
 </script>
 
 <template>
     <Head title="Puskesmas" />
 
     <AuthenticatedLayout>
-        <template #heading>
-            Puskesmas
-        </template>
+        <template #heading> Puskesmas </template>
 
-        <template #subheading>
-            Master data puskesmas.
-        </template>
+        <template #subheading> Master data puskesmas. </template>
 
         <template #button>
-            <Link :href="route('master.puskesmas.create')" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
+            <Link
+                :href="route('master.puskesmas.create')"
+                class="btn btn-sm btn-gray-800 d-inline-flex align-items-center"
+            >
                 <i class="fas fa-plus me-3"></i>
                 Tambah Data Puskesmas
             </Link>
 
             <div class="btn-group ms-2 ms-lg-3">
-                <button type="button" class="btn btn-sm btn-outline-gray-600">
+                <button
+                    type="button"
+                    class="btn btn-sm btn-outline-gray-600"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modal-import-puskesmas"
+                >
                     Import
                 </button>
 
-                <button type="button" class="btn btn-sm btn-outline-gray-600">
+                <a
+                    :href="route('excel.export.puskesmas')"
+                    type="button"
+                    class="btn btn-sm btn-outline-gray-600"
+                >
                     Export
-                </button>
+                </a>
             </div>
         </template>
 
@@ -55,7 +64,9 @@ const destroy = (id) => {
 
         <div class="card">
             <div class="table-responsive">
-                <table class="table table-sm table-bordered table-striped align-middle">
+                <table
+                    class="table table-sm table-bordered table-striped align-middle"
+                >
                     <thead>
                         <th width="10">No</th>
                         <th>Nama</th>
@@ -65,7 +76,10 @@ const destroy = (id) => {
 
                     <tbody>
                         <Rows :data="puskesmas.data" colspan="4">
-                            <tr v-for="(puskesmas, index) in puskesmas.data" :key="puskesmas.id">
+                            <tr
+                                v-for="(puskesmas, index) in puskesmas.data"
+                                :key="puskesmas.id"
+                            >
                                 <td>{{ index + 1 }}</td>
                                 <td>{{ puskesmas.nama }}</td>
                                 <td>{{ puskesmas.alamat }}</td>
@@ -73,14 +87,24 @@ const destroy = (id) => {
                                     <div class="btn-group">
                                         <Link
                                             class="btn btn-xs btn-gray-100"
-                                            :href="route('master.puskesmas.show', puskesmas.id)"
+                                            :href="
+                                                route(
+                                                    'master.puskesmas.show',
+                                                    puskesmas.id
+                                                )
+                                            "
                                         >
                                             <i class="fas fa-eye"></i>
                                         </Link>
 
                                         <Link
                                             class="btn btn-xs btn-secondary"
-                                            :href="route('master.puskesmas.edit', puskesmas.id)"
+                                            :href="
+                                                route(
+                                                    'master.puskesmas.edit',
+                                                    puskesmas.id
+                                                )
+                                            "
                                         >
                                             <i class="fas fa-edit"></i>
                                         </Link>
@@ -88,7 +112,8 @@ const destroy = (id) => {
                                         <Link
                                             @click="destroy(puskesmas.id)"
                                             class="btn btn-xs btn-danger"
-                                        ><i class="fas fa-trash"></i></Link>
+                                            ><i class="fas fa-trash"></i
+                                        ></Link>
                                     </div>
                                 </td>
                             </tr>
@@ -106,5 +131,12 @@ const destroy = (id) => {
                 />
             </div>
         </div>
+
+        <ImportModal
+            target="modal-import-puskesmas"
+            title="Import Data Puskesmas"
+            template="puskesmas.xlsx"
+            route="excel.import.puskesmas"
+        />
     </AuthenticatedLayout>
 </template>
