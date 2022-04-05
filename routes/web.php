@@ -25,5 +25,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     # IMPORT ROUTE
     require 'admin.php';
     require 'user.php';
+    require 'report.php';
     require 'excel.php';
+    require 'pdf.php';
 });
