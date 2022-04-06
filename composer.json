@@ -15,6 +15,7 @@
         "laravel/sanctum": "^2.8",
         "laravel/tinker": "^2.7",
         "maatwebsite/excel": "^3.1",
+        "spipu/html2pdf": "^5.2",
         "tightenco/ziggy": "^1.0"
     },
     "require-dev": {

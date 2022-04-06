@@ -71,6 +71,33 @@
         ]
     },
     {
+        "type": "dropdown",
+        "name": "Laporan",
+        "icon": "fas fa-print",
+        "roles": ["superadmin", "admin"],
+        "active": "laporan.*",
+        "menus": [
+            {
+                "name": "Mahasiswa",
+                "active": "laporan.mahasiswa.*",
+                "route": "laporan.mahasiswa.per-angkatan",
+                "roles": ["superadmin", "admin"]
+            },
+            {
+                "name": "Ibu Hamil",
+                "active": "laporan.ibu-hamil.*",
+                "route": "laporan.ibu-hamil.profil",
+                "roles": ["superadmin", "admin"]
+            },
+            {
+                "name": "Penyakit",
+                "active": "laporan.penyakit.*",
+                "route": "laporan.penyakit.jumlah-terbanyak",
+                "roles": ["superadmin", "admin"]
+            }
+        ]
+    },
+    {
         "type": "link",
         "name": "Berita",
         "route": "user.berita.index",
