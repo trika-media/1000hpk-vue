@@ -8,14 +8,13 @@ import { computed } from "@vue/runtime-core";
 
 const props = defineProps({
     ibuhamil: Object,
-    angkatan: Array,
 });
 
 const ibuhamil = computed(() => props.ibuhamil);
 </script>
 
 <template>
-    <Head title="Laporan Mahasiswa" />
+    <Head title="Laporan Ibu Hamil" />
 
     <AuthenticatedLayout>
         <template #heading> Laporan Ibu Hamil </template>

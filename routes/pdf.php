@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PDF\IbuHamilPdfController;
 use App\Http\Controllers\PDF\MahasiswaPdfController;
+use App\Http\Controllers\PDF\PenyakitPdfController;
 use Illuminate\Support\Facades\Route;
 
 # KUMPULAN ROUTE YANG DIGUNAKAN EXPORT PDF
@@ -18,5 +19,10 @@ Route::prefix('pdf')->name('pdf.')->group(function () {
     Route::prefix('ibu-hamil')->name('ibu-hamil.')->group(function () {
         Route::get('profil', [IbuHamilPdfController::class, 'profil'])
             ->name('profil');
+    });
+
+    Route::prefix('penyakit')->name('penyakit.')->group(function () {
+        Route::get('jumlah-terbanyak', [PenyakitPdfController::class, 'jumlahTerbanyak'])
+            ->name('jumlah-terbanyak');
     });
 });
