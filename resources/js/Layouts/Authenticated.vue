@@ -8,31 +8,37 @@ import Footer from "@/Components/Dashboard/Footer.vue";
 </script>
 
 <template>
-  <Nav />
+    <Nav class="d-print-none" />
 
-  <Sidenav />
+    <Sidenav class="d-print-none" />
 
-  <main class="content">
-    <Topbar />
+    <main class="content d-print-none">
+        <Topbar />
 
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
-        <div class="d-block mb-4 mb-md-0">
-            <h2 class="h4">
-                <slot name="heading" />
-            </h2>
+        <div
+            class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4"
+        >
+            <div class="d-block mb-4 mb-md-0">
+                <h2 class="h4">
+                    <slot name="heading" />
+                </h2>
 
-            <p class="mb-0">
-                <slot name="subheading" />
-            </p>
+                <p class="mb-0">
+                    <slot name="subheading" />
+                </p>
+            </div>
+
+            <div class="btn-toolbar mb-2 mb-md-0">
+                <slot name="button" />
+            </div>
         </div>
 
-        <div class="btn-toolbar mb-2 mb-md-0">
-            <slot name="button" />
-        </div>
+        <slot />
+
+        <Footer />
+    </main>
+
+    <div class="d-none d-print-block" id="print-area">
+        <slot name="print" />
     </div>
-
-    <slot />
-
-    <Footer />
-  </main>
 </template>
