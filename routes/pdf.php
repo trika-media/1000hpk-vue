@@ -19,6 +19,8 @@ Route::prefix('pdf')->name('pdf.')->group(function () {
     Route::prefix('ibu-hamil')->name('ibu-hamil.')->group(function () {
         Route::get('profil', [IbuHamilPdfController::class, 'profil'])
             ->name('profil');
+        Route::get('detail/{id}', [IbuHamilPdfController::class, 'detail'])
+            ->name('detail');
     });
 
     Route::prefix('penyakit')->name('penyakit.')->group(function () {

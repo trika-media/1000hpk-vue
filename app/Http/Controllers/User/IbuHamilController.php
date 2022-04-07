@@ -168,7 +168,7 @@ class IbuHamilController extends Controller
             'kecamatan',
             'kabupaten',
             'provinsi',
-            'mahasiswa',
+            'mahasiswa.akun',
             'keluhan.penyakit',
         ]);
 

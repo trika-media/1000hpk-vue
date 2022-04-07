@@ -25,7 +25,7 @@ const ibuhamil = computed(() => props.ibuHamil);
 </script>
 
 <template>
-    <Head title="Detail Puskesmas" />
+    <Head title="Detail Ibu Hamil" />
 
     <AuthenticatedLayout>
         <template #heading> Detail Data Ibu Hamil </template>
@@ -40,6 +40,23 @@ const ibuhamil = computed(() => props.ibuHamil);
                 <i class="fas fa-arrow-left me-3"></i>
                 Kembali
             </Link>
+
+            <a
+                class="btn btn-sm btn-danger d-inline-flex align-items-center ms-2"
+                :href="route('pdf.ibu-hamil.detail', ibuhamil.id)"
+                target="_blank"
+            >
+                <i class="fas fa-file-pdf me-3"></i>
+                PDF
+            </a>
+
+            <button
+                class="btn btn-sm btn-info d-inline-flex align-items-center ms-2"
+                @click="print()"
+            >
+                <i class="fas fa-print me-3"></i>
+                Cetak
+            </button>
         </template>
 
         <Alert />
@@ -195,5 +212,168 @@ const ibuhamil = computed(() => props.ibuHamil);
                 </li>
             </ul>
         </div>
+
+        <template #print>
+            <div class="row">
+                <div class="col-2">
+                    <img
+                        style="max-width: 20rem"
+                        :src="ibuhamil.mahasiswa.akun.avatar_url"
+                        :alt="'Foto' + ibuhamil.mahasiswa.akun.name"
+                    />
+                </div>
+
+                <div class="col-4">
+                    <table class="table table-sm table-borderless">
+                        <tr>
+                            <td class="align-top">NIM</td>
+                            <td class="align-top">:</td>
+                            <td class="align-top">
+                                {{ ibuhamil.mahasiswa.nim }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="align-top">Nama</td>
+                            <td class="align-top">:</td>
+                            <td class="align-top">
+                                {{ ibuhamil.mahasiswa.nama }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="align-top">Email</td>
+                            <td class="align-top">:</td>
+                            <td class="align-top">
+                                {{ ibuhamil.mahasiswa.akun.email }}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="col-4">
+                    <table class="table table-sm table-borderless">
+                        <tr>
+                            <td class="align-top">Alamat</td>
+                            <td class="align-top">:</td>
+                            <td class="align-top">
+                                {{ ibuhamil.mahasiswa.alamat }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="align-top">Nomor Ponsel</td>
+                            <td class="align-top">:</td>
+                            <td class="align-top">
+                                {{ ibuhamil.mahasiswa.nomor_ponsel }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="align-top">Angkatan</td>
+                            <td class="align-top">:</td>
+                            <td class="align-top">
+                                {{ ibuhamil.mahasiswa.angkatan }}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row my-3">
+                <div class="col-12">
+                    <div class="w-100">
+                        <LMap
+                            style="height: 300px; width: 100%"
+                            :minZoom="5"
+                            :zoom="18"
+                            :maxZoom="18"
+                            :center="[ibuhamil.lat, ibuhamil.lng]"
+                        >
+                            <LControlAttribution
+                                :prefix="$page.props.app.name"
+                            />
+
+                            <LTileLayer
+                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                layer-type="base"
+                                name="OpenStreetMap"
+                            ></LTileLayer>
+
+                            <LMarker :lat-lng="[ibuhamil.lat, ibuhamil.lng]">
+                                <LTooltip
+                                    >Lokasi Ibu Hamil :
+                                    {{ ibuhamil.nama }}</LTooltip
+                                >
+                            </LMarker>
+                        </LMap>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <table class="table table-sm table-borderless">
+                        <tr>
+                            <td class="align-top">Identitas</td>
+                            <td class="align-top">:</td>
+                            <td class="align-top">{{ ibuhamil.identitas }}</td>
+                        </tr>
+                        <tr>
+                            <td class="align-top">Nama</td>
+                            <td class="align-top">:</td>
+                            <td class="align-top">{{ ibuhamil.nama }}</td>
+                        </tr>
+                        <tr>
+                            <td class="align-top">Alamat</td>
+                            <td class="align-top">:</td>
+                            <td class="align-top">{{ ibuhamil.alamat }}</td>
+                        </tr>
+                        <tr>
+                            <td class="align-top">Nomor Ponsel</td>
+                            <td class="align-top">:</td>
+                            <td class="align-top">
+                                {{ ibuhamil.nomor_ponsel }}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="col-6">
+                    <table class="table table-sm table-borderless">
+                        <tr>
+                            <td class="align-top">Penyakit</td>
+                            <td class="align-top">:</td>
+                            <td class="align-top">
+                                <span
+                                    v-for="(keluhan, index) in ibuhamil.keluhan"
+                                    :key="index"
+                                >
+                                    -
+                                    {{
+                                        keluhan.penyakit.nama ||
+                                        keluhan.nama_penyakit
+                                    }}
+                                    <br />
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="align-top">Puskesmas</td>
+                            <td class="align-top">:</td>
+                            <td class="align-top">
+                                {{ ibuhamil.puskesmas.nama }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="align-top">Lat</td>
+                            <td class="align-top">:</td>
+                            <td class="align-top">{{ ibuhamil.lat }}</td>
+                        </tr>
+                        <tr>
+                            <td class="align-top">Lng</td>
+                            <td class="align-top">:</td>
+                            <td class="align-top">{{ ibuhamil.lng }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </template>
     </AuthenticatedLayout>
 </template>

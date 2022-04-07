@@ -21,4 +21,24 @@ class IbuHamilPdfController extends Controller
         $html2pdf->writeHTML($view);
         $html2pdf->output("ibu-hamil-profil.pdf");
     }
+
+    public function detail($id)
+    {
+        $ibuhamil = IbuHamil::query()
+            ->with([
+                'puskesmas',
+                'kelurahan',
+                'kecamatan',
+                'kabupaten',
+                'provinsi',
+                'mahasiswa.akun',
+                'keluhan.penyakit',
+            ])->findOrFail($id);
+
+        $html2pdf = new Html2Pdf('P', 'A4', 'en', false, 'ISO-8859-15', array(10, 10, 10, 10));
+        $view = view('pdf.ibu-hamil.detail', compact('ibuhamil'));
+        $html2pdf->setDefaultFont('Arial');
+        $html2pdf->writeHTML($view);
+        $html2pdf->output("ibu-hamil-detail-($ibuhamil->nama).pdf");
+    }
 }
