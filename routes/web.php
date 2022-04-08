@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome.index');
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::resource('profil', ProfilController::class)->only('index', 'update');
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
